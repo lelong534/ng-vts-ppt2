@@ -1,19 +1,19 @@
 export default function updateSize() {
-  const swiper = this;
+  const vtsCarousel = this;
   let width;
   let height;
-  const $el = swiper.$el;
-  if (typeof swiper.params.width !== 'undefined' && swiper.params.width !== null) {
-    width = swiper.params.width;
+  const $el = vtsCarousel.$el;
+  if (typeof vtsCarousel.params.width !== 'undefined' && vtsCarousel.params.width !== null) {
+    width = vtsCarousel.params.width;
   } else {
     width = $el[0].clientWidth;
   }
-  if (typeof swiper.params.height !== 'undefined' && swiper.params.height !== null) {
-    height = swiper.params.height;
+  if (typeof vtsCarousel.params.height !== 'undefined' && vtsCarousel.params.height !== null) {
+    height = vtsCarousel.params.height;
   } else {
     height = $el[0].clientHeight;
   }
-  if ((width === 0 && swiper.isHorizontal()) || (height === 0 && swiper.isVertical())) {
+  if ((width === 0 && vtsCarousel.isHorizontal()) || (height === 0 && vtsCarousel.isVertical())) {
     return;
   }
 
@@ -30,9 +30,9 @@ export default function updateSize() {
   if (Number.isNaN(width)) width = 0;
   if (Number.isNaN(height)) height = 0;
 
-  Object.assign(swiper, {
+  Object.assign(vtsCarousel, {
     width,
     height,
-    size: swiper.isHorizontal() ? width : height,
+    size: vtsCarousel.isHorizontal() ? width : height,
   });
 }

@@ -43,7 +43,7 @@ const prototypes = {
 
 const extendedDefaults = {};
 
-class Swiper {
+class VtsCarousel {
   isHorizontal() {
     throw new Error('Method not implemented.');
   }
@@ -80,66 +80,66 @@ class Swiper {
     if (el && !params.el) params.el = el;
 
     if (params.el && $(params.el).length > 1) {
-      const swipers = [];
+      const vtsCarousels = [];
       $(params.el).each((containerEl) => {
         const newParams = extend({}, params, { el: containerEl });
-        swipers.push(new Swiper(newParams));
+        vtsCarousels.push(new VtsCarousel(newParams));
       });
       // eslint-disable-next-line no-constructor-return
-      return swipers;
+      return vtsCarousels;
     }
 
-    // Swiper Instance
-    const swiper = this;
-    swiper.__swiper__ = true;
-    swiper.support = getSupport();
-    swiper.device = getDevice({ userAgent: params.userAgent });
-    swiper.browser = getBrowser();
+    // VtsCarousel Instance
+    const vtsCarousel = this;
+    vtsCarousel.__vtsCarousel = true;
+    vtsCarousel.support = getSupport();
+    vtsCarousel.device = getDevice({ userAgent: params.userAgent });
+    vtsCarousel.browser = getBrowser();
 
-    swiper.eventsListeners = {};
-    swiper.eventsAnyListeners = [];
-    swiper.modules = [...swiper.__modules__];
+    vtsCarousel.eventsListeners = {};
+    vtsCarousel.eventsAnyListeners = [];
+    vtsCarousel.modules = [...vtsCarousel.__modules__];
     if (params.modules && Array.isArray(params.modules)) {
-      swiper.modules.push(...params.modules);
+      vtsCarousel.modules.push(...params.modules);
     }
 
     const allModulesParams = {};
 
-    swiper.modules.forEach((mod) => {
+    vtsCarousel.modules.forEach((mod) => {
       mod({
-        swiper,
+        vtsCarousel,
         extendParams: moduleExtendParams(params, allModulesParams),
-        on: swiper.on.bind(swiper),
-        once: swiper.once.bind(swiper),
-        off: swiper.off.bind(swiper),
-        emit: swiper.emit.bind(swiper),
+        on: vtsCarousel.on.bind(vtsCarousel),
+        once: vtsCarousel.once.bind(vtsCarousel),
+        off: vtsCarousel.off.bind(vtsCarousel),
+        emit: vtsCarousel.emit.bind(vtsCarousel),
       });
     });
 
     // Extend defaults with modules params
-    const swiperParams = extend({}, defaults, allModulesParams);
+    const vtsCarouselParams = extend({}, defaults, allModulesParams);
 
     // Extend defaults with passed params
-    swiper.params = extend({}, swiperParams, extendedDefaults, params);
-    swiper.originalParams = extend({}, swiper.params);
-    swiper.passedParams = extend({}, params);
+    vtsCarousel.params = extend({}, vtsCarouselParams, extendedDefaults, params);
+    vtsCarousel.originalParams = extend({}, vtsCarousel.params);
+    vtsCarousel.passedParams = extend({}, params);
 
     // add event listeners
-    if (swiper.params && swiper.params.on) {
-      Object.keys(swiper.params.on).forEach((eventName) => {
-        swiper.on(eventName, swiper.params.on[eventName]);
+    if (vtsCarousel.params && vtsCarousel.params.on) {
+      Object.keys(vtsCarousel.params.on).forEach((eventName) => {
+        vtsCarousel.on(eventName, vtsCarousel.params.on[eventName]);
       });
     }
-    if (swiper.params && swiper.params.onAny) {
-      swiper.onAny(swiper.params.onAny);
+    if (vtsCarousel.params && vtsCarousel.params.onAny) {
+      vtsCarousel.onAny(vtsCarousel.params.onAny);
     }
 
     // Save Dom lib
-    swiper.$ = $;
+    vtsCarousel.$ = $;
 
-    // Extend Swiper
-    Object.assign(swiper, {
-      enabled: swiper.params.enabled,
+    // Extend VtsCarousel
+    Object.assign(vtsCarousel, {
+      enabled: vtsCarousel.params.enabled,
       el,
 
       // Classes
@@ -153,10 +153,10 @@ class Swiper {
 
       // isDirection
       isHorizontal() {
-        return swiper.params.direction === 'horizontal';
+        return vtsCarousel.params.direction === 'horizontal';
       },
       isVertical() {
-        return swiper.params.direction === 'vertical';
+        return vtsCarousel.params.direction === 'vertical';
       },
 
       // Indexes
@@ -175,28 +175,28 @@ class Swiper {
       animating: false,
 
       // Locks
-      allowSlideNext: swiper.params.allowSlideNext,
-      allowSlidePrev: swiper.params.allowSlidePrev,
+      allowSlideNext: vtsCarousel.params.allowSlideNext,
+      allowSlidePrev: vtsCarousel.params.allowSlidePrev,
 
       // Touch Events
       touchEvents: (function touchEvents() {
         const touch = ['touchstart', 'touchmove', 'touchend', 'touchcancel'];
         const desktop = ['pointerdown', 'pointermove', 'pointerup'];
 
-        swiper.touchEventsTouch = {
+        vtsCarousel.touchEventsTouch = {
           start: touch[0],
           move: touch[1],
           end: touch[2],
           cancel: touch[3],
         };
-        swiper.touchEventsDesktop = {
+        vtsCarousel.touchEventsDesktop = {
           start: desktop[0],
           move: desktop[1],
           end: desktop[2],
         };
-        return swiper.support.touch || !swiper.params.simulateTouch
-          ? swiper.touchEventsTouch
-          : swiper.touchEventsDesktop;
+        return vtsCarousel.support.touch || !vtsCarousel.params.simulateTouch
+          ? vtsCarousel.touchEventsTouch
+          : vtsCarousel.touchEventsDesktop;
       })(),
       touchEventsData: {
         isTouched: undefined,
@@ -208,7 +208,7 @@ class Swiper {
         startTranslate: undefined,
         allowThresholdMove: undefined,
         // Form elements to match
-        focusableElements: swiper.params.focusableElements,
+        focusableElements: vtsCarousel.params.focusableElements,
         // Last click time
         lastClickTime: now(),
         clickTimeout: undefined,
@@ -223,7 +223,7 @@ class Swiper {
       allowClick: true,
 
       // Touches
-      allowTouchMove: swiper.params.allowTouchMove,
+      allowTouchMove: vtsCarousel.params.allowTouchMove,
 
       touches: {
         startX: 0,
@@ -238,16 +238,16 @@ class Swiper {
       imagesLoaded: 0,
     });
 
-    swiper.emit('_swiper');
+    vtsCarousel.emit('_vtsCarousel');
 
     // Init
-    if (swiper.params.init) {
-      swiper.init();
+    if (vtsCarousel.params.init) {
+      vtsCarousel.init();
     }
 
     // Return app instance
     // eslint-disable-next-line no-constructor-return
-    return swiper;
+    return vtsCarousel;
     this.virtual = undefined;
     this.loopCreate = undefined;
     this.loopDestroy = undefined;
@@ -260,94 +260,94 @@ class Swiper {
   }
 
   enable() {
-    const swiper = this;
-    if (swiper.enabled) return;
-    swiper.enabled = true;
-    if (swiper.params.grabCursor) {
-      swiper.setGrabCursor();
+    const vtsCarousel = this;
+    if (vtsCarousel.enabled) return;
+    vtsCarousel.enabled = true;
+    if (vtsCarousel.params.grabCursor) {
+      vtsCarousel.setGrabCursor();
     }
-    swiper.emit('enable');
+    vtsCarousel.emit('enable');
   }
 
   disable() {
-    const swiper = this;
-    if (!swiper.enabled) return;
-    swiper.enabled = false;
-    if (swiper.params.grabCursor) {
-      swiper.unsetGrabCursor();
+    const vtsCarousel = this;
+    if (!vtsCarousel.enabled) return;
+    vtsCarousel.enabled = false;
+    if (vtsCarousel.params.grabCursor) {
+      vtsCarousel.unsetGrabCursor();
     }
-    swiper.emit('disable');
+    vtsCarousel.emit('disable');
   }
 
   setProgress(progress, speed) {
-    const swiper = this;
+    const vtsCarousel = this;
     progress = Math.min(Math.max(progress, 0), 1);
-    const min = swiper.minTranslate();
-    const max = swiper.maxTranslate();
+    const min = vtsCarousel.minTranslate();
+    const max = vtsCarousel.maxTranslate();
     const current = (max - min) * progress + min;
-    swiper.translateTo(current, typeof speed === 'undefined' ? 0 : speed);
-    swiper.updateActiveIndex();
-    swiper.updateSlidesClasses();
+    vtsCarousel.translateTo(current, typeof speed === 'undefined' ? 0 : speed);
+    vtsCarousel.updateActiveIndex();
+    vtsCarousel.updateSlidesClasses();
   }
 
   emitContainerClasses() {
-    const swiper = this;
-    if (!swiper.params._emitClasses || !swiper.el) return;
-    const cls = swiper.el.className.split(' ').filter((className) => {
+    const vtsCarousel = this;
+    if (!vtsCarousel.params._emitClasses || !vtsCarousel.el) return;
+    const cls = vtsCarousel.el.className.split(' ').filter((className) => {
       return (
-        className.indexOf('swiper') === 0 ||
-        className.indexOf(swiper.params.containerModifierClass) === 0
+        className.indexOf('vtsCarousel') === 0 ||
+        className.indexOf(vtsCarousel.params.containerModifierClass) === 0
       );
     });
-    swiper.emit('_containerClasses', cls.join(' '));
+    vtsCarousel.emit('_containerClasses', cls.join(' '));
   }
 
   getSlideClasses(slideEl) {
-    const swiper = this;
-    if (swiper.destroyed) return '';
+    const vtsCarousel = this;
+    if (vtsCarousel.destroyed) return '';
 
     return slideEl.className
       .split(' ')
       .filter((className) => {
         return (
-          className.indexOf('swiper-slide') === 0 ||
-          className.indexOf(swiper.params.slideClass) === 0
+          className.indexOf('vtsCarousel-slide') === 0 ||
+          className.indexOf(vtsCarousel.params.slideClass) === 0
         );
       })
       .join(' ');
   }
 
   emitSlidesClasses() {
-    const swiper = this;
-    if (!swiper.params._emitClasses || !swiper.el) return;
+    const vtsCarousel = this;
+    if (!vtsCarousel.params._emitClasses || !vtsCarousel.el) return;
     const updates = [];
-    swiper.slides.each((slideEl) => {
-      const classNames = swiper.getSlideClasses(slideEl);
+    vtsCarousel.slides.each((slideEl) => {
+      const classNames = vtsCarousel.getSlideClasses(slideEl);
       updates.push({ slideEl, classNames });
-      swiper.emit('_slideClass', slideEl, classNames);
+      vtsCarousel.emit('_slideClass', slideEl, classNames);
     });
-    swiper.emit('_slideClasses', updates);
+    vtsCarousel.emit('_slideClasses', updates);
   }
 
   slidesPerViewDynamic(view = 'current', exact = false) {
-    const swiper = this;
-    const { params, slides, slidesGrid, slidesSizesGrid, size: swiperSize, activeIndex } = swiper;
+    const vtsCarousel = this;
+    const { params, slides, slidesGrid, slidesSizesGrid, size: vtsCarouselSize, activeIndex } = vtsCarousel;
     let spv = 1;
     if (params.centeredSlides) {
-      let slideSize = slides[activeIndex].swiperSlideSize;
+      let slideSize = slides[activeIndex].vtsCarouselSlideSize;
       let breakLoop;
       for (let i = activeIndex + 1; i < slides.length; i += 1) {
         if (slides[i] && !breakLoop) {
-          slideSize += slides[i].swiperSlideSize;
+          slideSize += slides[i].vtsCarouselSlideSize;
           spv += 1;
-          if (slideSize > swiperSize) breakLoop = true;
+          if (slideSize > vtsCarouselSize) breakLoop = true;
         }
       }
       for (let i = activeIndex - 1; i >= 0; i -= 1) {
         if (slides[i] && !breakLoop) {
-          slideSize += slides[i].swiperSlideSize;
+          slideSize += slides[i].vtsCarouselSlideSize;
           spv += 1;
-          if (slideSize > swiperSize) breakLoop = true;
+          if (slideSize > vtsCarouselSize) breakLoop = true;
         }
       }
     } else {
@@ -355,8 +355,8 @@ class Swiper {
       if (view === 'current') {
         for (let i = activeIndex + 1; i < slides.length; i += 1) {
           const slideInView = exact
-            ? slidesGrid[i] + slidesSizesGrid[i] - slidesGrid[activeIndex] < swiperSize
-            : slidesGrid[i] - slidesGrid[activeIndex] < swiperSize;
+            ? slidesGrid[i] + slidesSizesGrid[i] - slidesGrid[activeIndex] < vtsCarouselSize
+            : slidesGrid[i] - slidesGrid[activeIndex] < vtsCarouselSize;
           if (slideInView) {
             spv += 1;
           }
@@ -364,7 +364,7 @@ class Swiper {
       } else {
         // previous
         for (let i = activeIndex - 1; i >= 0; i -= 1) {
-          const slideInView = slidesGrid[activeIndex] - slidesGrid[i] < swiperSize;
+          const slideInView = slidesGrid[activeIndex] - slidesGrid[i] < vtsCarouselSize;
           if (slideInView) {
             spv += 1;
           }
@@ -375,57 +375,57 @@ class Swiper {
   }
 
   update() {
-    const swiper = this;
-    if (!swiper || swiper.destroyed) return;
-    const { snapGrid, params } = swiper;
+    const vtsCarousel = this;
+    if (!vtsCarousel || vtsCarousel.destroyed) return;
+    const { snapGrid, params } = vtsCarousel;
     // Breakpoints
     if (params.breakpoints) {
-      swiper.setBreakpoint();
+      vtsCarousel.setBreakpoint();
     }
-    swiper.updateSize();
-    swiper.updateSlides();
-    swiper.updateProgress();
-    swiper.updateSlidesClasses();
+    vtsCarousel.updateSize();
+    vtsCarousel.updateSlides();
+    vtsCarousel.updateProgress();
+    vtsCarousel.updateSlidesClasses();
 
     function setTranslate() {
-      const translateValue = swiper.rtlTranslate ? swiper.translate * -1 : swiper.translate;
+      const translateValue = vtsCarousel.rtlTranslate ? vtsCarousel.translate * -1 : vtsCarousel.translate;
       const newTranslate = Math.min(
-        Math.max(translateValue, swiper.maxTranslate()),
-        swiper.minTranslate(),
+        Math.max(translateValue, vtsCarousel.maxTranslate()),
+        vtsCarousel.minTranslate(),
       );
-      swiper.setTranslate(newTranslate);
-      swiper.updateActiveIndex();
-      swiper.updateSlidesClasses();
+      vtsCarousel.setTranslate(newTranslate);
+      vtsCarousel.updateActiveIndex();
+      vtsCarousel.updateSlidesClasses();
     }
     let translated;
-    if (swiper.params.freeMode && swiper.params.freeMode.enabled) {
+    if (vtsCarousel.params.freeMode && vtsCarousel.params.freeMode.enabled) {
       setTranslate();
-      if (swiper.params.autoHeight) {
-        swiper.updateAutoHeight();
+      if (vtsCarousel.params.autoHeight) {
+        vtsCarousel.updateAutoHeight();
       }
     } else {
       if (
-        (swiper.params.slidesPerView === 'auto' || swiper.params.slidesPerView > 1) &&
-        swiper.isEnd &&
-        !swiper.params.centeredSlides
+        (vtsCarousel.params.slidesPerView === 'auto' || vtsCarousel.params.slidesPerView > 1) &&
+        vtsCarousel.isEnd &&
+        !vtsCarousel.params.centeredSlides
       ) {
-        translated = swiper.slideTo(swiper.slides.length - 1, 0, false, true);
+        translated = vtsCarousel.slideTo(vtsCarousel.slides.length - 1, 0, false, true);
       } else {
-        translated = swiper.slideTo(swiper.activeIndex, 0, false, true);
+        translated = vtsCarousel.slideTo(vtsCarousel.activeIndex, 0, false, true);
       }
       if (!translated) {
         setTranslate();
       }
     }
-    if (params.watchOverflow && snapGrid !== swiper.snapGrid) {
-      swiper.checkOverflow();
+    if (params.watchOverflow && snapGrid !== vtsCarousel.snapGrid) {
+      vtsCarousel.checkOverflow();
     }
-    swiper.emit('update');
+    vtsCarousel.emit('update');
   }
 
   changeDirection(newDirection, needUpdate = true) {
-    const swiper = this;
-    const currentDirection = swiper.params.direction;
+    const vtsCarousel = this;
+    const currentDirection = vtsCarousel.params.direction;
     if (!newDirection) {
       // eslint-disable-next-line
       newDirection = currentDirection === 'horizontal' ? 'vertical' : 'horizontal';
@@ -434,17 +434,17 @@ class Swiper {
       newDirection === currentDirection ||
       (newDirection !== 'horizontal' && newDirection !== 'vertical')
     ) {
-      return swiper;
+      return vtsCarousel;
     }
 
-    swiper.$el
-      .removeClass(`${swiper.params.containerModifierClass}${currentDirection}`)
-      .addClass(`${swiper.params.containerModifierClass}${newDirection}`);
-    swiper.emitContainerClasses();
+    vtsCarousel.$el
+      .removeClass(`${vtsCarousel.params.containerModifierClass}${currentDirection}`)
+      .addClass(`${vtsCarousel.params.containerModifierClass}${newDirection}`);
+    vtsCarousel.emitContainerClasses();
 
-    swiper.params.direction = newDirection;
+    vtsCarousel.params.direction = newDirection;
 
-    swiper.slides.each((slideEl) => {
+    vtsCarousel.slides.each((slideEl) => {
       if (newDirection === 'vertical') {
         slideEl.style.width = '';
       } else {
@@ -452,43 +452,43 @@ class Swiper {
       }
     });
 
-    swiper.emit('changeDirection');
-    if (needUpdate) swiper.update();
+    vtsCarousel.emit('changeDirection');
+    if (needUpdate) vtsCarousel.update();
 
-    return swiper;
+    return vtsCarousel;
   }
 
   changeLanguageDirection(direction) {
-    const swiper = this;
-    if ((swiper.rtl && direction === 'rtl') || (!swiper.rtl && direction === 'ltr')) return;
-    swiper.rtl = direction === 'rtl';
-    swiper.rtlTranslate = swiper.params.direction === 'horizontal' && swiper.rtl;
-    if (swiper.rtl) {
-      swiper.$el.addClass(`${swiper.params.containerModifierClass}rtl`);
-      swiper.el.dir = 'rtl';
+    const vtsCarousel = this;
+    if ((vtsCarousel.rtl && direction === 'rtl') || (!vtsCarousel.rtl && direction === 'ltr')) return;
+    vtsCarousel.rtl = direction === 'rtl';
+    vtsCarousel.rtlTranslate = vtsCarousel.params.direction === 'horizontal' && vtsCarousel.rtl;
+    if (vtsCarousel.rtl) {
+      vtsCarousel.$el.addClass(`${vtsCarousel.params.containerModifierClass}rtl`);
+      vtsCarousel.el.dir = 'rtl';
     } else {
-      swiper.$el.removeClass(`${swiper.params.containerModifierClass}rtl`);
-      swiper.el.dir = 'ltr';
+      vtsCarousel.$el.removeClass(`${vtsCarousel.params.containerModifierClass}rtl`);
+      vtsCarousel.el.dir = 'ltr';
     }
-    swiper.update();
+    vtsCarousel.update();
   }
 
   mount(el) {
-    const swiper = this;
-    if (swiper.mounted) return true;
+    const vtsCarousel = this;
+    if (vtsCarousel.mounted) return true;
 
     // Find el
-    const $el = $(el || swiper.params.el);
+    const $el = $(el || vtsCarousel.params.el);
     el = $el[0];
 
     if (!el) {
       return false;
     }
 
-    el.swiper = swiper;
+    el.vtsCarousel = vtsCarousel;
 
     const getWrapperSelector = () => {
-      return `.${(swiper.params.wrapperClass || '').trim().split(' ').join('.')}`;
+      return `.${(vtsCarousel.params.wrapperClass || '').trim().split(' ').join('.')}`;
     };
 
     const getWrapper = () => {
@@ -505,18 +505,18 @@ class Swiper {
     };
     // Find Wrapper
     let $wrapperEl = getWrapper();
-    if ($wrapperEl.length === 0 && swiper.params.createElements) {
+    if ($wrapperEl.length === 0 && vtsCarousel.params.createElements) {
       const document = getDocument();
       const wrapper = document.createElement('div');
       $wrapperEl = $(wrapper);
-      wrapper.className = swiper.params.wrapperClass;
+      wrapper.className = vtsCarousel.params.wrapperClass;
       $el.append(wrapper);
-      $el.children(`.${swiper.params.slideClass}`).each((slideEl) => {
+      $el.children(`.${vtsCarousel.params.slideClass}`).each((slideEl) => {
         $wrapperEl.append(slideEl);
       });
     }
 
-    Object.assign(swiper, {
+    Object.assign(vtsCarousel, {
       $el,
       el,
       $wrapperEl,
@@ -526,7 +526,7 @@ class Swiper {
       // RTL
       rtl: el.dir.toLowerCase() === 'rtl' || $el.css('direction') === 'rtl',
       rtlTranslate:
-        swiper.params.direction === 'horizontal' &&
+        vtsCarousel.params.direction === 'horizontal' &&
         (el.dir.toLowerCase() === 'rtl' || $el.css('direction') === 'rtl'),
       wrongRTL: $wrapperEl.css('display') === '-webkit-box',
     });
@@ -535,96 +535,96 @@ class Swiper {
   }
 
   init(el) {
-    const swiper = this;
-    if (swiper.initialized) return swiper;
+    const vtsCarousel = this;
+    if (vtsCarousel.initialized) return vtsCarousel;
 
-    const mounted = swiper.mount(el);
-    if (mounted === false) return swiper;
+    const mounted = vtsCarousel.mount(el);
+    if (mounted === false) return vtsCarousel;
 
-    swiper.emit('beforeInit');
+    vtsCarousel.emit('beforeInit');
 
     // Set breakpoint
-    if (swiper.params.breakpoints) {
-      swiper.setBreakpoint();
+    if (vtsCarousel.params.breakpoints) {
+      vtsCarousel.setBreakpoint();
     }
 
     // Add Classes
-    swiper.addClasses();
+    vtsCarousel.addClasses();
 
     // Create loop
-    if (swiper.params.loop) {
-      swiper.loopCreate();
+    if (vtsCarousel.params.loop) {
+      vtsCarousel.loopCreate();
     }
 
     // Update size
-    swiper.updateSize();
+    vtsCarousel.updateSize();
 
     // Update slides
-    swiper.updateSlides();
+    vtsCarousel.updateSlides();
 
-    if (swiper.params.watchOverflow) {
-      swiper.checkOverflow();
+    if (vtsCarousel.params.watchOverflow) {
+      vtsCarousel.checkOverflow();
     }
 
     // Set Grab Cursor
-    if (swiper.params.grabCursor && swiper.enabled) {
-      swiper.setGrabCursor();
+    if (vtsCarousel.params.grabCursor && vtsCarousel.enabled) {
+      vtsCarousel.setGrabCursor();
     }
 
-    if (swiper.params.preloadImages) {
-      swiper.preloadImages();
+    if (vtsCarousel.params.preloadImages) {
+      vtsCarousel.preloadImages();
     }
 
     // Slide To Initial Slide
-    if (swiper.params.loop) {
-      swiper.slideTo(
-        swiper.params.initialSlide + swiper.loopedSlides,
+    if (vtsCarousel.params.loop) {
+      vtsCarousel.slideTo(
+        vtsCarousel.params.initialSlide + vtsCarousel.loopedSlides,
         0,
-        swiper.params.runCallbacksOnInit,
+        vtsCarousel.params.runCallbacksOnInit,
         false,
         true,
       );
     } else {
-      swiper.slideTo(swiper.params.initialSlide, 0, swiper.params.runCallbacksOnInit, false, true);
+      vtsCarousel.slideTo(vtsCarousel.params.initialSlide, 0, vtsCarousel.params.runCallbacksOnInit, false, true);
     }
 
     // Attach events
-    swiper.attachEvents();
+    vtsCarousel.attachEvents();
 
     // Init Flag
-    swiper.initialized = true;
+    vtsCarousel.initialized = true;
 
     // Emit
-    swiper.emit('init');
-    swiper.emit('afterInit');
+    vtsCarousel.emit('init');
+    vtsCarousel.emit('afterInit');
 
-    return swiper;
+    return vtsCarousel;
   }
 
   destroy(deleteInstance = true, cleanStyles = true) {
-    const swiper = this;
-    const { params, $el, $wrapperEl, slides } = swiper;
+    const vtsCarousel = this;
+    const { params, $el, $wrapperEl, slides } = vtsCarousel;
 
-    if (typeof swiper.params === 'undefined' || swiper.destroyed) {
+    if (typeof vtsCarousel.params === 'undefined' || vtsCarousel.destroyed) {
       return null;
     }
 
-    swiper.emit('beforeDestroy');
+    vtsCarousel.emit('beforeDestroy');
 
     // Init Flag
-    swiper.initialized = false;
+    vtsCarousel.initialized = false;
 
     // Detach events
-    swiper.detachEvents();
+    vtsCarousel.detachEvents();
 
     // Destroy loop
     if (params.loop) {
-      swiper.loopDestroy();
+      vtsCarousel.loopDestroy();
     }
 
     // Cleanup styles
     if (cleanStyles) {
-      swiper.removeClasses();
+      vtsCarousel.removeClasses();
       $el.removeAttr('style');
       $wrapperEl.removeAttr('style');
       if (slides && slides.length) {
@@ -638,22 +638,22 @@ class Swiper {
             ].join(' '),
           )
           .removeAttr('style')
-          .removeAttr('data-swiper-slide-index');
+          .removeAttr('data-vtsCarousel-slide-index');
       }
     }
 
-    swiper.emit('destroy');
+    vtsCarousel.emit('destroy');
 
     // Detach emitter events
-    Object.keys(swiper.eventsListeners).forEach((eventName) => {
-      swiper.off(eventName);
+    Object.keys(vtsCarousel.eventsListeners).forEach((eventName) => {
+      vtsCarousel.off(eventName);
     });
 
     if (deleteInstance !== false) {
-      swiper.$el[0].swiper = null;
-      deleteProps(swiper);
+      vtsCarousel.$el[0].vtsCarousel = null;
+      deleteProps(vtsCarousel);
     }
-    swiper.destroyed = true;
+    vtsCarousel.destroyed = true;
 
     return null;
   }
@@ -671,8 +671,8 @@ class Swiper {
   }
 
   static installModule(mod) {
-    if (!Swiper.prototype.__modules__) Swiper.prototype.__modules__ = [];
-    const modules = Swiper.prototype.__modules__;
+    if (!VtsCarousel.prototype.__modules__) VtsCarousel.prototype.__modules__ = [];
+    const modules = VtsCarousel.prototype.__modules__;
 
     if (typeof mod === 'function' && modules.indexOf(mod) < 0) {
       modules.push(mod);
@@ -681,20 +681,20 @@ class Swiper {
 
   static use(module) {
     if (Array.isArray(module)) {
-      module.forEach((m) => Swiper.installModule(m));
-      return Swiper;
+      module.forEach((m) => VtsCarousel.installModule(m));
+      return VtsCarousel;
     }
-    Swiper.installModule(module);
-    return Swiper;
+    VtsCarousel.installModule(module);
+    return VtsCarousel;
   }
 }
 
 Object.keys(prototypes).forEach((prototypeGroup) => {
   Object.keys(prototypes[prototypeGroup]).forEach((protoMethod) => {
-    Swiper.prototype[protoMethod] = prototypes[prototypeGroup][protoMethod];
+    VtsCarousel.prototype[protoMethod] = prototypes[prototypeGroup][protoMethod];
   });
 });
 
-Swiper.use([Resize, Observer]);
+VtsCarousel.use([Resize, Observer]);
 
-export default Swiper;
+export default VtsCarousel;

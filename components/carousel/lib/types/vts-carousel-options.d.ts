@@ -22,25 +22,25 @@ import { ZoomOptions } from './modules/zoom';
 import { FreeModeOptions } from './modules/free-mode';
 import { GridOptions } from './modules/grid';
 
-import { CSSSelector, SwiperModule } from './shared';
-import { SwiperEvents } from './swiper-events';
+import { CSSSelector, vtsCarouselModule } from './shared';
+import { VtsCarouselEvents } from './vts-carousel-events';
 
-export interface SwiperOptions {
+export interface VtsCarouselOptions {
   /**
-   * Array with Swiper modules
+   * Array with vtsCarousel modules
    *
    * @example
    * ```js
-   * import Swiper, { Navigation, Pagination } from 'swiper';
+   * import vtsCarousel, { Navigation, Pagination } from 'swiper';
    *
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *    modules: [ Navigation, Pagination ],
    *  });
    * ```
    */
-  modules?: SwiperModule[];
+  modules?: vtsCarouselModule[];
   /**
-   * Whether Swiper should be initialised automatically when you create an instance.
+   * Whether vtsCarousel should be initialised automatically when you create an instance.
    * If disabled, then you need to init it manually by calling `swiper.init()`
    *
    * @default true
@@ -48,14 +48,14 @@ export interface SwiperOptions {
   init?: boolean;
 
   /**
-   * Whether Swiper initially enabled. When Swiper is disabled, it will hide all navigation elements and won't respond to any events and interactions
+   * Whether vtsCarousel initially enabled. When vtsCarousel is disabled, it will hide all navigation elements and won't respond to any events and interactions
    *
    * @default true
    */
   enabled?: boolean;
 
   /**
-   * Swiper will recalculate slides position on window resize (orientationchange)
+   * vtsCarousel will recalculate slides position on window resize (orientationchange)
    *
    * @default true
    */
@@ -106,22 +106,22 @@ export interface SwiperOptions {
   virtualTranslate?: boolean;
 
   /**
-   * Swiper width (in px). Parameter allows to force Swiper width.
-   * Useful only if you initialize Swiper when it is hidden and in SSR and Test environments for correct Swiper initialization
+   * vtsCarousel width (in px). Parameter allows to force vtsCarousel width.
+   * Useful only if you initialize vtsCarousel when it is hidden and in SSR and Test environments for correct vtsCarousel initialization
    *
    * @default null
    *
-   * @note Setting this parameter will make Swiper not responsive
+   * @note Setting this parameter will make vtsCarousel not responsive
    */
   width?: number | null;
 
   /**
-   * Swiper height (in px). Parameter allows to force Swiper height.
-   * Useful only if you initialize Swiper when it is hidden and in SSR and Test environments for correct Swiper initialization
+   * vtsCarousel height (in px). Parameter allows to force vtsCarousel height.
+   * Useful only if you initialize vtsCarousel when it is hidden and in SSR and Test environments for correct vtsCarousel initialization
    *
    * @default null
    *
-   * @note Setting this parameter will make Swiper not responsive
+   * @note Setting this parameter will make vtsCarousel not responsive
    */
   height?: number | null;
 
@@ -141,7 +141,7 @@ export interface SwiperOptions {
   roundLengths?: boolean;
 
   /**
-   * Set to `true` on  Swiper for correct touch events interception. Use only on
+   * Set to `true` on  vtsCarousel for correct touch events interception. Use only on
    * swipers that use same direction as the parent one
    *
    * @default false
@@ -149,7 +149,7 @@ export interface SwiperOptions {
   nested?: boolean;
 
   /**
-   * When enabled Swiper will automatically wrap slides with swiper-wrapper element,
+   * When enabled vtsCarousel will automatically wrap slides with swiper-wrapper element,
    * and will create required elements for navigation, pagination and scrollbar
    * they are enabled (with their respective params object or with boolean `true`))
    *
@@ -166,7 +166,7 @@ export interface SwiperOptions {
 
   /**
    * If enabled (by default) and navigation elements' parameters passed as a string (like `".pagination"`)
-   * then Swiper will look for such elements through child elements first.
+   * then vtsCarousel will look for such elements through child elements first.
    * Applies for pagination, prev/next buttons and scrollbar elements
    *
    * @default true
@@ -189,7 +189,7 @@ export interface SwiperOptions {
   runCallbacksOnInit?: boolean;
 
   /**
-   * When enabled Swiper will be disabled and hide navigation buttons on
+   * When enabled vtsCarousel will be disabled and hide navigation buttons on
    * case there are not enough slides for sliding.
    *
    * @default true
@@ -214,7 +214,7 @@ export interface SwiperOptions {
    * Register event handlers
    */
   on?: {
-    [event in keyof SwiperEvents]?: SwiperEvents[event];
+    [event in keyof vtsCarouselEvents]?: vtsCarouselEvents[event];
   };
 
   /**
@@ -222,7 +222,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *    onAny(eventName, ...args) {
    *      console.log('Event: ', eventName);
    *      console.log('Event data: ', args);
@@ -234,7 +234,7 @@ export interface SwiperOptions {
 
   /**
    * When enabled it will use modern CSS Scroll Snap API.
-   * It doesn't support all of Swiper's features, but potentially should bring a much better performance in simple configurations.
+   * It doesn't support all of vtsCarousel's features, but potentially should bring a much better performance in simple configurations.
    *
    * This is what is not supported when it is enabled:
    *
@@ -259,7 +259,7 @@ export interface SwiperOptions {
    *
    * @default 0
    *
-   * @note If you use "margin" css property to the elements which go into Swiper in which you pass "spaceBetween" into, navigation might not work properly.
+   * @note If you use "margin" css property to the elements which go into vtsCarousel in which you pass "spaceBetween" into, navigation might not work properly.
    */
   spaceBetween?: number;
 
@@ -273,7 +273,7 @@ export interface SwiperOptions {
   slidesPerView?: number | 'auto';
 
   /**
-   * If total number of slides less than specified here value, then Swiper will enable `backface-visibility: hidden` on slide elements to reduce visual "flicker" in Safari.
+   * If total number of slides less than specified here value, then vtsCarousel will enable `backface-visibility: hidden` on slide elements to reduce visual "flicker" in Safari.
    *
    * @note It is not recommended to enable it on large amount of slides as it will reduce performance
    *
@@ -348,7 +348,7 @@ export interface SwiperOptions {
   centerInsufficientSlides?: boolean;
 
   /**
-   * This option may a little improve desktop usability. If `true`, user will see the "grab" cursor when hover on Swiper
+   * This option may a little improve desktop usability. If `true`, user will see the "grab" cursor when hover on vtsCarousel
    *
    * @default false
    */
@@ -377,7 +377,7 @@ export interface SwiperOptions {
   touchAngle?: number;
 
   /**
-   * If `true`, Swiper will accept mouse events like touch events (click and drag to change slides)
+   * If `true`, vtsCarousel will accept mouse events like touch events (click and drag to change slides)
    *
    * @default true
    */
@@ -454,7 +454,7 @@ export interface SwiperOptions {
   touchMoveStopPropagation?: boolean;
 
   /**
-   * Enable to release Swiper events for swipe-back work in app. If set to `'prevent'` then it will prevent system swipe-back navigation instead
+   * Enable to release vtsCarousel events for swipe-back work in app. If set to `'prevent'` then it will prevent system swipe-back navigation instead
    *
    * @default false
    */
@@ -581,14 +581,14 @@ export interface SwiperOptions {
 
   // Images
   /**
-   * When enabled Swiper will force to load all images
+   * When enabled vtsCarousel will force to load all images
    *
    * @default true
    */
   preloadImages?: boolean;
 
   /**
-   * When enabled Swiper will be reinitialized after all inner images (<img> tags) are loaded. Required `preloadImages: true`
+   * When enabled vtsCarousel will be reinitialized after all inner images (<img> tags) are loaded. Required `preloadImages: true`
    *
    * @default true
    */
@@ -626,7 +626,7 @@ export interface SwiperOptions {
   loopAdditionalSlides?: number;
 
   /**
-   * If you use `slidesPerView:'auto'` with loop mode you should tell to Swiper how many slides it should loop (duplicate) using this parameter
+   * If you use `slidesPerView:'auto'` with loop mode you should tell to vtsCarousel how many slides it should loop (duplicate) using this parameter
    *
    * @default null
    */
@@ -646,7 +646,7 @@ export interface SwiperOptions {
    */
   loopFillGroupWithBlank?: boolean;
   /**
-   * When enabled it prevents Swiper slide prev/next transitions when transitions is already in progress (has effect when `loop` enabled)
+   * When enabled it prevents vtsCarousel slide prev/next transitions when transitions is already in progress (has effect when `loop` enabled)
    *
    * @default true
    */
@@ -657,7 +657,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   // Default parameters
    *   slidesPerView: 1,
    *   spaceBetween: 10,
@@ -684,7 +684,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   slidesPerView: 1,
    *   spaceBetween: 10,
    *   // using "ratio" endpoints
@@ -706,8 +706,8 @@ export interface SwiperOptions {
    * ```
    */
   breakpoints?: {
-    [width: number]: SwiperOptions;
-    [ratio: string]: SwiperOptions;
+    [width: number]: vtsCarouselOptions;
+    [ratio: string]: vtsCarouselOptions;
   };
 
   /**
@@ -715,25 +715,25 @@ export interface SwiperOptions {
    *
    * @default 'window'
    *
-   * @note Currently in beta and not supported by Swiper Angular, React, Svelte and Vue components
+   * @note Currently in beta and not supported by vtsCarousel Angular, React, Svelte and Vue components
    */
   breakpointsBase?: string;
 
   // Observer
   /**
-   * Set to `true` to enable Mutation Observer on Swiper and its elements. In this case Swiper will be updated (reinitialized) each time if you change its style (like hide/show) or modify its child elements (like adding/removing slides)
+   * Set to `true` to enable Mutation Observer on vtsCarousel and its elements. In this case vtsCarousel will be updated (reinitialized) each time if you change its style (like hide/show) or modify its child elements (like adding/removing slides)
    *
    * @default false
    */
   observer?: boolean;
   /**
-   * Set to `true` if you also need to watch Mutations for Swiper slide children elements
+   * Set to `true` if you also need to watch Mutations for vtsCarousel slide children elements
    *
    * @default false
    */
   observeSlideChildren?: boolean;
   /**
-   * Set to `true` if you also need to watch Mutations for Swiper parent elements
+   * Set to `true` if you also need to watch Mutations for vtsCarousel parent elements
    *
    * @default false
    */
@@ -752,9 +752,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue components
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue components
    */
   slideClass?: string;
 
@@ -763,9 +763,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-active'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue components
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue components
    */
   slideActiveClass?: string;
 
@@ -774,9 +774,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-duplicate-active'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue components
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue components
    */
   slideDuplicateActiveClass?: string;
 
@@ -785,9 +785,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-visible'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue
    */
   slideVisibleClass?: string;
 
@@ -796,9 +796,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-duplicate'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue
    */
   slideDuplicateClass?: string;
 
@@ -807,9 +807,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-next'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue
    */
   slideNextClass?: string;
 
@@ -818,9 +818,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-duplicate-next'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue
    */
   slideDuplicateNextClass?: string;
 
@@ -829,9 +829,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-prev'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue
    */
   slidePrevClass?: string;
 
@@ -840,9 +840,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-duplicate-prev'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue
    */
   slideDuplicatePrevClass?: string;
 
@@ -851,9 +851,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-slide-invisible-blank'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue
    */
   slideBlankClass?: string;
 
@@ -862,9 +862,9 @@ export interface SwiperOptions {
    *
    * @default 'swiper-wrapper'
    *
-   * @note By changing classes you will also need to change Swiper's CSS to reflect changed classes
+   * @note By changing classes you will also need to change vtsCarousel's CSS to reflect changed classes
    *
-   * @note Not supported in Swiper Angular/React/Svelte/Vue
+   * @note Not supported in vtsCarousel Angular/React/Svelte/Vue
    *
    */
   wrapperClass?: string;
@@ -874,7 +874,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   a11y: {
    *     prevSlideMessage: 'Previous slide',
    *     nextSlideMessage: 'Next slide',
@@ -889,7 +889,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *  autoplay: {
    *    delay: 5000,
    *  },
@@ -903,7 +903,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   controller: {
    *     inverse: true,
    *   },
@@ -917,7 +917,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   effect: 'coverflow',
    *   coverflowEffect: {
    *     rotate: 30,
@@ -933,7 +933,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   effect: 'cube',
    *   cubeEffect: {
    *     slideShadows: false,
@@ -948,7 +948,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   effect: 'fade',
    *   fadeEffect: {
    *     crossFade: true
@@ -963,7 +963,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   effect: 'flip',
    *   flipEffect: {
    *     slideShadows: false,
@@ -978,7 +978,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   effect: 'creative',
    *   creativeEffect: {
    *     prev: {
@@ -1000,7 +1000,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   effect: 'cards',
    *   cardsEffect: {
    *     // ...
@@ -1016,7 +1016,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   hashNavigation: {
    *     replaceState: true,
    *   },
@@ -1032,7 +1032,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   history: {
    *     replaceState: true,
    *   },
@@ -1052,7 +1052,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   keyboard: {
    *     enabled: true,
    *     onlyInViewport: false,
@@ -1067,7 +1067,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   lazy: {
    *     loadPrevNext: true,
    *   },
@@ -1081,7 +1081,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   mousewheel: {
    *     invert: true,
    *   },
@@ -1095,7 +1095,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   navigation: {
    *     nextEl: '.swiper-button-next',
    *     prevEl: '.swiper-button-prev',
@@ -1110,7 +1110,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   pagination: {
    *     el: '.swiper-pagination',
    *     type: 'bullets',
@@ -1125,7 +1125,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   parallax: true,
    * });
    * ```
@@ -1137,7 +1137,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   scrollbar: {
    *     el: '.swiper-scrollbar',
    *     draggable: true,
@@ -1152,10 +1152,10 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   ...
    *   thumbs: {
-   *     swiper: thumbsSwiper
+   *     swiper: thumbsvtsCarousel
    *   }
    * });
    * ```
@@ -1167,7 +1167,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   virtual: {
    *     slides: ['Slide 1', 'Slide 2', 'Slide 3', 'Slide 4', 'Slide 5'],
    *   },
@@ -1181,7 +1181,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   zoom: {
    *     maxRatio: 5,
    *   },
@@ -1195,11 +1195,11 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   freeMode: true,
    * });
    *
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   freeMode: {
    *     enabled: true,
    *     sticky: true,
@@ -1214,7 +1214,7 @@ export interface SwiperOptions {
    *
    * @example
    * ```js
-   * const swiper = new Swiper('.swiper', {
+   * const swiper = new vtsCarousel('.swiper', {
    *   grid: {
    *     rows: 2,
    *   },

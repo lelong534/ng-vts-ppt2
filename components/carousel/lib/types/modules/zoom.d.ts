@@ -1,4 +1,4 @@
-import Swiper from '../swiper-class';
+import VtsCarousel from '../vts-carousel-class';
 
 export interface ZoomMethods {
   /**

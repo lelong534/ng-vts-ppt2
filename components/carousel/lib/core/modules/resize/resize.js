@@ -1,25 +1,25 @@
 import { getWindow } from 'ssr-window';
 
-export default function Resize({ swiper, on, emit }) {
+export default function Resize({ vtsCarousel, on, emit }) {
   const window = getWindow();
   let observer = null;
   let animationFrame = null;
 
   const resizeHandler = () => {
-    if (!swiper || swiper.destroyed || !swiper.initialized) return;
+    if (!vtsCarousel || vtsCarousel.destroyed || !vtsCarousel.initialized) return;
     emit('beforeResize');
     emit('resize');
   };
 
   const createObserver = () => {
-    if (!swiper || swiper.destroyed || !swiper.initialized) return;
+    if (!vtsCarousel || vtsCarousel.destroyed || !vtsCarousel.initialized) return;
     observer = new ResizeObserver((entries) => {
       animationFrame = window.requestAnimationFrame(() => {
-        const { width, height } = swiper;
+        const { width, height } = vtsCarousel;
         let newWidth = width;
         let newHeight = height;
         entries.forEach(({ contentBoxSize, contentRect, target }) => {
-          if (target && target !== swiper.el) return;
+          if (target && target !== vtsCarousel.el) return;
           newWidth = contentRect
             ? contentRect.width
             : (contentBoxSize[0] || contentBoxSize).inlineSize;
@@ -32,26 +32,26 @@ export default function Resize({ swiper, on, emit }) {
         }
       });
     });
-    observer.observe(swiper.el);
+    observer.observe(vtsCarousel.el);
   };
 
   const removeObserver = () => {
     if (animationFrame) {
       window.cancelAnimationFrame(animationFrame);
     }
-    if (observer && observer.unobserve && swiper.el) {
-      observer.unobserve(swiper.el);
+    if (observer && observer.unobserve && vtsCarousel.el) {
+      observer.unobserve(vtsCarousel.el);
       observer = null;
     }
   };
 
   const orientationChangeHandler = () => {
-    if (!swiper || swiper.destroyed || !swiper.initialized) return;
+    if (!vtsCarousel || vtsCarousel.destroyed || !vtsCarousel.initialized) return;
     emit('orientationchange');
   };
 
   on('init', () => {
-    if (swiper.params.resizeObserver && typeof window.ResizeObserver !== 'undefined') {
+    if (vtsCarousel.params.resizeObserver && typeof window.ResizeObserver !== 'undefined') {
       createObserver();
       return;
     }

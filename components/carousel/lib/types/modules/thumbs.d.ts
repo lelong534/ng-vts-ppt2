@@ -1,10 +1,10 @@
-import Swiper from '../swiper-class';
+import VtsCarousel from '../vts-carousel-class';
 
 export interface ThumbsMethods {
   /**
-   * Swiper instance of thumbs swiper
+   * VtsCarousel instance of thumbs swiper
    */
-  swiper: Swiper;
+  vtsCarousel: VtsCarousel;
 
   /**
    * Update thumbs
@@ -21,21 +21,21 @@ export interface ThumbsEvents {}
 
 export interface ThumbsOptions {
   /**
-   * Swiper instance of swiper used as thumbs or object with Swiper parameters to initialize thumbs swiper
+   * VtsCarousel instance of vtsCarousel used as thumbs or object with VtsCarousel parameters to initialize thumbs vtsCarousel
    *
    * @default null
    */
-  swiper?: Swiper | null;
+  vtsCarousel?: VtsCarousel | null;
   /**
-   * Additional class that will be added to activated thumbs swiper slide
+   * Additional class that will be added to activated thumbs vtsCarousel slide
    *
-   * @default 'swiper-slide-thumb-active'
+   * @default 'vts-carousel-slide-thumb-active'
    */
   slideThumbActiveClass?: string;
   /**
-   * Additional class that will be added to thumbs swiper
+   * Additional class that will be added to thumbs vtsCarousel
    *
-   * @default 'swiper-thumbs'
+   * @default 'vts-carousel-thumbs'
    */
   thumbsContainerClass?: string;
   /**

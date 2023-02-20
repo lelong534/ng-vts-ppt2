@@ -1,5 +1,5 @@
 // @ts-ignore
-import Swiper from './swiper';
+import VtsCarousel from './vts-carousel';
 import { paramsList } from './params-list';
 import { extend, isObject } from './utils';
 type KeyValueType = { [x: string]: any };
@@ -10,8 +10,8 @@ export function getParams(obj: any = {}) {
   };
   // const events = {};
   const passedParams: KeyValueType = {};
-  extend(params, Swiper.defaults);
-  extend(params, Swiper.extendedDefaults);
+  extend(params, VtsCarousel.defaults);
+  extend(params, VtsCarousel.extendedDefaults);
   params._emitClasses = true;
   params.init = false;
 
