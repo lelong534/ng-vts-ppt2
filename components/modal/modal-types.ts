@@ -66,7 +66,7 @@ export interface ModalButtonOptions<T = VtsSafeAny> {
   label: string;
   type?: VtsButtonType | VtsSafeAny;
   danger?: boolean;
-  shape?: VtsButtonShape;
+  shape?: VtsButtonShape | VtsSafeAny;
   ghost?: boolean;
   size?: VtsButtonSize;
   autoLoading?: boolean; // Default: true, indicate whether show loading automatically while onClick returned a Promise

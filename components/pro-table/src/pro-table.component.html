@@ -1,0 +1,66 @@
+<link rel="stylesheet" type="text/css"
+  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+<div [ngStyle]="{'display': 'flex', 'flex-direction':'row', 'justify-content':vtsTableTitle?'space-between':'right'}">
+  <ng-container *ngIf="vtsTableTitle">
+    <span class="title-table">{{vtsTableTitle}}</span>
+  </ng-container>
+  <div vts-col class="btn-control-area">
+    <button vts-button vtsType="default" [vtsSize]="buttonSize" class="btn-default" (click)="onClickAction('create')">
+      <span vts-icon vtsType="AddDoutone"></span>
+      New
+    </button>
+    <button vts-button class="btn-table-config" vtsType="default" [vtsSize]="buttonSize" class="btn-default"
+      (click)="onClickAction('export')">
+      <span vts-icon vtsType="CloudUploadDoutone"></span>
+      Export
+    </button>
+    <button vts-button class="btn-table-config" vtsType="default" [vtsSize]="buttonSize" class="btn-default"
+      (click)="onClickAction('import')">
+      <span vts-icon vtsType="SaveAltDoutone"></span>
+      Import
+    </button>
+
+    <ng-container *ngIf="vtsMoreActionConfig">
+      <vts-button-group [vtsSize]="buttonSize" vtsType="primary" vts-dropdown vtsTrigger="click"
+        [vtsDropdownMenu]="moreAction">
+        <button vts-button vtsType="primary" class="btn-table-config btn-more-action btn-more-action-content"
+          [vtsSize]="buttonSize" vts-dropdown vtsTrigger="click">
+          More action
+        </button>
+        <button vts-button vtsType="primary" class="btn-table-config btn-more-action btn-more-action-arrow"
+          [vtsSize]="buttonSize" vts-dropdown vtsTrigger="click">
+          <span vts-icon vtsType="ArrowDownOutline"></span>
+        </button>
+      </vts-button-group>
+      <vts-dropdown-menu #moreAction="vtsDropdownMenu">
+        <ul vts-menu style="padding: 0px">
+          <ng-container *ngFor="let action of vtsMoreActionConfig">
+            <li vts-menu-item [ngStyle]="action.style" (click)="onClickAction('more')">{{action.buttonText}}</li>
+          </ng-container>
+        </ul>
+      </vts-dropdown-menu>
+    </ng-container>
+  </div>
+</div>
+
+<ng-container *ngIf="vtsTabGroupConfig; else tableArea">
+  <vts-tabset [(vtsSelectedIndex)]="selectedTabIndex" (vtsSelectedIndexChange)="onChangeTabFilter($event)">
+    <ng-container *ngFor="let tabConfig of vtsTabGroupConfig.tabValueConfig">
+      <vts-tab vtsTitle="{{tabConfig.tabTitle}} ({{tabConfig.total? tabConfig.total : 0}})">
+      </vts-tab>
+    </ng-container>
+  </vts-tabset>
+  <ng-container *ngTemplateOutlet="tableArea"></ng-container>
+</ng-container>
+
+<ng-template #tableArea>
+  <vts-spin [vtsSpinning]="vtsLoading">
+    <vts-table-config [listData]="vtsListData" [properties]="vtsProperties" [vtsTotal]="vtsTotal" [action]="actionType"
+      [searchData]="searchData" [listStatus]="vtsListStatus" [tabConfig]="tabConfig" [drawerConfig]="vtsDrawerConfig"
+      [filterGroupConfig]="vtsFilterGroupConfig" [modalUploadConfig]="vtsModalUploadConfig"
+      [modalDeleteConfig]="vtsModalDeleteConfig" [moreActionConfig]="vtsMoreActionConfig"
+      (reloadTable)="reloadTable($event)" (searchingByKey)="onSearchingByKey($event)"
+      (changePageIndex)="changePageIndex($event)" (deleteData)="onDeleteData($event)" (modifiedData)="onEditData($event)">
+    </vts-table-config>
+  </vts-spin>
+</ng-template>

@@ -1,0 +1,34 @@
+<div class="logo-header vts-logo" *ngIf="showLogo"></div>
+<div vts-row class="header-main">
+    <div vts-col class="title-container" vtsFlex="auto">
+        <ng-container *ngIf="title">
+            {{ title }}
+        </ng-container>
+        <ul vts-menu vtsTheme="dark" vtsMode="horizontal" class="header-menu" *ngIf="!useSplitMenu">
+            <ng-container *ngFor="let item of menuData">
+                <vts-prolayout-menu-item-horizontal [menuItem]="item"></vts-prolayout-menu-item-horizontal>
+            </ng-container>
+        </ul>
+    </div>
+    <div vts-col vts-row class="avatar-container" [vtsGutter]="20">
+        <div vts-col>
+            <i vts-icon vtsType="Search" class="cursor-pointer" vtsSize="lg"></i>
+        </div>
+        <div vts-row vtsAlign="middle" [vtsGutter]="10" vts-col class="cursor-pointer" vts-dropdown [vtsDropdownMenu]="menuAvatar">
+            <vts-avatar vts-col vtsSize="sm" vtsIcon="user"></vts-avatar>
+            <div vts-col>
+                <div class="username">
+                    {{ avatar.name }}
+                </div>
+                <div class="subname">
+                    {{ avatar.subname }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <vts-dropdown-menu #menuAvatar="vtsDropdownMenu">
+        <ul vts-menu vtsSelectable>
+            <li vts-menu-item *ngFor="let item of avatar.menu">{{ item.label }}</li>
+        </ul>
+    </vts-dropdown-menu>
+</div>
