@@ -76,7 +76,7 @@
         </tbody>
       </table>
       <ng-container *ngIf="displayedData.length>0">
-        <ng-container *ngIf="vtsPaginationPosition === 'both' || vtsPaginationPosition === 'bottom'">
+        <ng-container>
           <ng-template [ngTemplateOutlet]="paginationTemplate"></ng-template>
         </ng-container>
         <ng-template #paginationTemplate>

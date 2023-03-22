@@ -47,7 +47,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
                   vtsMode="multiple" vtsAllowClear="false"
                   [vtsTokenSeparators]="[',']"
                   [vtsCustomTemplate]="multipleTemplate"
-                  [vtsDropdownStyle]="{'width':'18vw', 
+                  [vtsDropdownStyle]="{'width':'16vw', 
                     'margin-left':'-90px',
                     'box-shadow': '0px 4px 10px rgba(0, 0, 0, 0.1), 0px 0px 3px rgba(0, 0, 0, 0.5)',
                     'border-radius': '6px',
@@ -170,7 +170,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
         border-radius: 6px;
         color: #8F9294;
         margin: 0px 4px;
-        width: 18vw;
+        width: 16vw;
       }
 
       .filter-item:first-child,

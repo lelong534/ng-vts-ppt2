@@ -12,6 +12,7 @@
     <ng-container *ngIf="mode=='edit'">
       <div style="display: flex; justify-content: right; align-items: center; padding: 0 56px;">
         <button vts-button vtsType="primary" (click)="onSave()" style="border-radius: 6px;" [disabled]="!formGroup.valid">Save</button>
+        <button vts-button vtsType="default" (click)="closeDrawer()" style="border-radius: 6px;">Cancel</button>
       </div>
     </ng-container>
     <ng-container *ngIf="mode=='create' || mode=='create-another'">

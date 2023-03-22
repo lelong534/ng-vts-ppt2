@@ -18,7 +18,7 @@ import { forkJoin } from 'rxjs';
       [vtsModalUploadConfig]="uploadConfig"
       [vtsModalDeleteConfig]="modalDeleteConfig"
       [vtsFilterGroupConfig]="filterGroupConfig"
-      [vtsTotal]="total"
+      [vtsTotal]="listData.length"
       (vtsOnActionChanger)="onActionChanger($event)"
       (vtsOnTabFilterChanger)="onChangeTabFilter($event)"
       (vtsOnSearchingByKey)="onSearchingByKey($event)"
