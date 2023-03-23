@@ -13,10 +13,10 @@ export type VtsProTablePaginationPosition = 'top' | 'bottom' | 'both';
 export type VtsRequest = {
   url: string,
   type: "POST" | "GET" | "PUT" | "DELETE",
-  params?: {[key: string]: VtsSafeAny},
-  body?: {[key: string]: VtsSafeAny},
-  onSuccess?: (data: {[key: string]: VtsSafeAny}) => void,
-  onError?: (data: {[key: string]: VtsSafeAny}) => void
+  params?: { [key: string]: VtsSafeAny },
+  body?: { [key: string]: VtsSafeAny },
+  onSuccess?: (data: { [key: string]: VtsSafeAny }) => void,
+  onError?: (data: { [key: string]: VtsSafeAny }) => void
 }
 
 export type VtsViewMode = "view" | "edit" | "create" | "create-another";
@@ -27,7 +27,7 @@ export type VtsDrawerConfig = {
   showTitleBasedOnProp?: string,
   onOpen?: () => void,
   onClose?: () => void,
-  onSave?: (data: {[key: string]: any}) => void,
+  onSave?: (data: { [key: string]: any }) => void,
 }
 
 export type VtsStatusConfig = {
@@ -72,7 +72,7 @@ export type VtsTabCondition = {
 export type VtsButtonConfig = {
   buttonText: string,
   buttonAPI?: VtsRequest,
-  style: {[key: string]: string},
+  style: { [key: string]: string },
   classNames?: string,
   onClick?: () => void
 }
@@ -86,8 +86,8 @@ export type VtsProTableFilterList = Array<{
 export type VtsTableData =
   | VtsSafeAny
   | {
-      [key: string]: VtsTableData;
-    };
+    [key: string]: VtsTableData;
+  };
 export type VtsTableLayout = 'fixed' | 'auto';
 export type VtsTablePaginationPosition = 'top' | 'bottom' | 'both';
 export type VtsTablePaginationType = 'default' | 'small';
@@ -113,3 +113,41 @@ export interface VtsTableQueryParams {
 }
 
 export type VtsActionType = 'create' | 'create-another' | 'edit' | 'delete' | 'import' | 'export' | 'view' | 'more' | 'reload';
+
+export type VtsProTableFixedButtons = {
+  new?: string,
+  export?: string,
+  import?: string,
+  edit?: string,
+  delete?: string
+  enabled?: string,
+  deleteSelected?: string,
+  clearSelected?: string,
+  clearSubtext?: string,
+  exportSelected?: string,
+  order?: string,
+  actions?: string,
+  moreActions?: string,
+  searchAll?: string,
+  close?: string,
+  save?: string,
+  reset?: string,
+  search?: string,
+  submit?: string
+  rowHeight?: {
+    normal?: string,
+    expand?: string,
+    narrow?: string
+  },
+  displayAll?: string,
+  create?: string,
+  createAnother?: string,
+  cancel?: string,
+  chooseFile?: string,
+  uploadText?: {
+    prefix?: string,
+    subfix?: string,
+    permiss?: string,
+    maxSize?: string
+  }
+}

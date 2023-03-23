@@ -6,12 +6,12 @@
         <i vts-icon vtsType="UploadCloud"></i>
       </p>
       <p class="text-hint">
-        Kéo thả ảnh/video hoặc
-        <a vts-button vtsType="link" (click)="container.openDialog()">Chọn file</a>
-        để tải lên
+        {{labels.uploadText?.prefix}}
+        <a vts-button vtsType="link" (click)="container.openDialog()">{{labels.chooseFile}}</a>
+        {{labels.uploadText?.subfix}}
       </p>
       <p class="text-hint">
-        Chỉ cho phép file dạng {{ config?.acceptTypes }} {{ getMaxFileSizeInText() }}
+        {{labels.uploadText?.permiss}} {{ config?.acceptTypes }} {{ getMaxFileSizeInText() }}
       </p>
     </vts-upload>
   </ng-container>

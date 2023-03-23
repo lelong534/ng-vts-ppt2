@@ -1,3 +1,5 @@
+import { VtsProTableFixedButtons } from './../pro-table.type';
+import { VtsProTableRenderService } from './../pro-table-render.service';
 import { Component, Input, OnInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VtsSizeLDSType, VtsSafeAny } from '@ui-vts/ng-vts/core/types';
@@ -74,6 +76,7 @@ export class ProtableDrawerComponent implements OnInit, OnChanges {
   displayHeaders: VtsPropertyType[] = [];
   title: string = "Test drawer";
   datePickerSize: VtsSizeLDSType = 'md';
+  labels: VtsProTableFixedButtons = {};
 
   @Output() close: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() modeChanger: EventEmitter<VtsViewMode> = new EventEmitter<VtsViewMode>();
@@ -82,7 +85,13 @@ export class ProtableDrawerComponent implements OnInit, OnChanges {
   @Output() deleteItem: EventEmitter<string | number> = new EventEmitter<string | number>();
   @Output() editDataChanger: EventEmitter<VtsSafeAny> = new EventEmitter<VtsSafeAny>();
 
-  ngOnInit() { }
+  constructor(
+    private renderService: VtsProTableRenderService
+  ) { }
+
+  ngOnInit() { 
+    this.renderService.labelRender$.subscribe(res => {this.labels = {...res}});
+  }  
 
   ngOnChanges(changes: SimpleChanges) {
     let { headers, data, drawerConfig, open, mode } = changes;

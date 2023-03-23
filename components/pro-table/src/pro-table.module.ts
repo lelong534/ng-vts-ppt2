@@ -1,8 +1,8 @@
-import { VtsPopoverModule } from './../../popover/popover.module';
-import { VtsSwitchModule } from './../../switch/switch.module';
+import { VtsPopoverModule } from '@ui-vts/ng-vts/popover';
+import { VtsSwitchModule } from '@ui-vts/ng-vts/switch';
 import { VtsBadgeModule } from '@ui-vts/ng-vts/badge';
-import { VtsInputModule } from '@ui-vts/ng-vts/input/input.module';
-import { VtsDividerModule } from './../../divider/divider.module';
+import { VtsInputModule } from '@ui-vts/ng-vts/input'
+import { VtsDividerModule } from '@ui-vts/ng-vts/divider';
 import { VtsUploadModule } from '@ui-vts/ng-vts/upload';
 import { VtsSelectModule } from '@ui-vts/ng-vts/select';
 import { VtsDrawerModule } from '@ui-vts/ng-vts/drawer';
@@ -27,7 +27,6 @@ import { VtsRadioModule } from '@ui-vts/ng-vts/radio';
 import { VtsSpinModule } from '@ui-vts/ng-vts/spin';
 import { VtsFormModule } from '@ui-vts/ng-vts/form';
 import { VtsProTableContainerComponent } from './pro-table.component';
-import { VtsProTableSearchFormComponent } from './components/search-form.component';
 import { VtsProTableConfigComponent } from './components/table-config.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ProtableDrawerComponent } from './components/table-drawer.component';
@@ -53,7 +52,6 @@ import { VtsFilterTriggerComponent } from './components/filter-trigger.component
 @NgModule({
   declarations: [
     VtsProTableContainerComponent,
-    VtsProTableSearchFormComponent,
     VtsProTableGroupFilterComponent,
     VtsProTableConfigComponent,
     ProtableDrawerComponent,
@@ -72,11 +70,7 @@ import { VtsFilterTriggerComponent } from './components/filter-trigger.component
     VtsFilterTriggerComponent
   ],
   exports: [
-    VtsProTableContainerComponent,
-    VtsProTableSearchFormComponent,
-    VtsProTableGroupFilterComponent,
-    VtsProTableConfigComponent,
-    VtsProTableSelectedLabelConfigComponent,
+    VtsProTableContainerComponent
   ],
   imports: [
     BidiModule,

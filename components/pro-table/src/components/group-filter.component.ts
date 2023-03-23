@@ -1,5 +1,5 @@
 import { VtsSafeAny } from '@ui-vts/ng-vts/core/types';
-import { VtsPropertyType } from './../pro-table.type';
+import { VtsPropertyType, VtsProTableFixedButtons } from './../pro-table.type';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import {
   ChangeDetectionStrategy,
@@ -20,6 +20,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { VtsProTableRenderService } from '../pro-table-render.service';
 
 @Component({
   selector: 'vts-group-filter',
@@ -42,12 +43,12 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
             <ng-container *ngIf="i<2">
               <vts-input-group class="filter-item" [vtsAddOnBefore]="filter.filterText" style="padding-left: 2px">
                 <vts-select
-                  [vtsMaxTagCount]="1"
+                  [vtsMaxTagCount]="0"
                   [(ngModel)]="filter.selectedValues"
                   vtsMode="multiple" vtsAllowClear="false"
                   [vtsTokenSeparators]="[',']"
                   [vtsCustomTemplate]="multipleTemplate"
-                  [vtsDropdownStyle]="{'width':'16vw', 
+                  [vtsDropdownStyle]="{'width':'auto', 
                     'margin-left':'-90px',
                     'box-shadow': '0px 4px 10px rgba(0, 0, 0, 0.1), 0px 0px 3px rgba(0, 0, 0, 0.5)',
                     'border-radius': '6px',
@@ -85,9 +86,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
         <vts-dropdown-menu #menuSwapVert="vtsDropdownMenu">
           <div class="triangle-up"></div>
           <ul vts-menu class="drag-area">
-            <li vts-menu-item class="height-dropdown-item" (click)="handleChangeRowHeight('normal')">Normal</li>
-            <li vts-menu-item class="height-dropdown-item" (click)="handleChangeRowHeight('expand')">Expand</li>
-            <li vts-menu-item class="height-dropdown-item" (click)="handleChangeRowHeight('narrow')">Narrow</li>
+            <li vts-menu-item class="height-dropdown-item" (click)="handleChangeRowHeight('normal')">{{labels.rowHeight?.normal}}</li>
+            <li vts-menu-item class="height-dropdown-item" (click)="handleChangeRowHeight('expand')">{{labels.rowHeight?.expand}}</li>
+            <li vts-menu-item class="height-dropdown-item" (click)="handleChangeRowHeight('narrow')">{{labels.rowHeight?.narrow}}</li>
           </ul>
         </vts-dropdown-menu>
         <a vts-button vts-dropdown vtsTrigger="click" vtsType="text" [vtsDropdownMenu]="menuSettings" class="btn-table-config" [vtsPlacement]="'bottomRight'">
@@ -98,7 +99,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
           <ul vts-menu cdkDropList (cdkDropListDropped)="drop($event)" class="drag-area">
             <li vts-menu-item>
               <label vts-checkbox [(ngModel)]="allChecked" (ngModelChange)="updateAllChecked()"
-                [vtsIndeterminate]="indeterminateConfig">Display all column</label>
+                [vtsIndeterminate]="indeterminateConfig">{{labels.displayAll}}</label>
             </li>
             <vts-divider style="margin: 0; padding: 4px 0px; width: 220px"></vts-divider>
 
@@ -113,9 +114,9 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
             <vts-divider style="margin: 0; padding: 4px 0px"></vts-divider>
             <div class="btn-config-area">
               <button class="btn-config-item" vts-button [vtsSize]="'xs'" vtsType="primary" (click)="onSavePropsConfig()"
-                ><i vts-icon vtsType="SaveOutline"></i>Save</button>
+                ><i vts-icon vtsType="SaveOutline"></i>{{labels.save}}</button>
               <button class="btn-config-item" style="margin-left: 8px" vts-button [vtsSize]="'xs'" vtsType="default" (click)="onResetPropsConfig()"
-                ><i vts-icon vtsType="RestoreOutline"></i>Reset</button>
+                ><i vts-icon vtsType="RestoreOutline"></i>{{labels.reset}}</button>
             </div>
           </ul>
         </vts-dropdown-menu>
@@ -170,7 +171,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
         border-radius: 6px;
         color: #8F9294;
         margin: 0px 4px;
-        width: 16vw;
+        flex-basis: 33%;
+        min-width: 10vw;
       }
 
       .filter-item:first-child,
@@ -269,14 +271,20 @@ export class VtsProTableGroupFilterComponent implements OnDestroy, OnInit, OnCha
   indeterminateConfig = true;
   listOfFilter = [];
   isVisibleModal = false;
+  labels: VtsProTableFixedButtons = {};
 
   constructor(
     private elementRef: ElementRef,
     @Optional() private directionality: Directionality,
     private fb: FormBuilder,
-    private changeDetector: ChangeDetectorRef) {
+    private changeDetector: ChangeDetectorRef,
+    private renderService: VtsProTableRenderService  
+  ) {
     // TODO: move to host after View Engine deprecation
     this.elementRef.nativeElement.classList.add('vts-search-form');
+    this.renderService.labelRender$.subscribe(res => {
+      this.labels = {...res};
+    })
   }
 
   ngOnInit(): void {

@@ -7,7 +7,8 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { VtsSafeAny } from '@ui-vts/ng-vts/core/types';
-import { VtsPropertyType } from '../pro-table.type';
+import { VtsProTableRenderService } from '../pro-table-render.service';
+import { VtsPropertyType, VtsProTableFixedButtons } from '../pro-table.type';
 
 @Component({
   selector: 'filter-drawer',
@@ -51,12 +52,18 @@ export class VtsProtableFilterPopupComponent implements OnInit {
   placeholder = '';
   size: any = 'md';
   formGroup: FormGroup = new FormGroup({});
+  labels: VtsProTableFixedButtons = {};
 
   constructor(
+    private renderService: VtsProTableRenderService
   ) { }
 
   ngOnInit(): void {
+    this.renderService.labelRender$.subscribe(res => {
+      this.labels = {...res};
+    })
     this.initForm();
+    this.renderService.labelRender$.unsubscribe();
   }
 
   onSearch() {

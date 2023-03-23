@@ -11,20 +11,20 @@
   <ng-template #footerTpl>
     <ng-container *ngIf="mode=='edit'">
       <div style="display: flex; justify-content: right; align-items: center; padding: 0 56px;">
-        <button vts-button vtsType="primary" (click)="onSave()" style="border-radius: 6px;" [disabled]="!formGroup.valid">Save</button>
-        <button vts-button vtsType="default" (click)="closeDrawer()" style="border-radius: 6px;">Cancel</button>
+        <button vts-button vtsType="primary" (click)="onSave()" style="border-radius: 6px;" [disabled]="!formGroup.valid">{{labels.save}}</button>
+        <button vts-button vtsType="default" (click)="closeDrawer()" style="border-radius: 6px;">{{labels.cancel}}</button>
       </div>
     </ng-container>
     <ng-container *ngIf="mode=='create' || mode=='create-another'">
       <div style="display: flex; justify-content: center; align-items: center; padding: 0 54px;">
         <button vts-button (click)="closeDrawer()" vtsType="default"
           style="margin-right: 8px; border: 1px solid #737373; border-radius: 6px; color: #737373; width: 8vw;"><i
-            vts-icon vtsType="Close"></i>Cancel</button>
+            vts-icon vtsType="Close"></i>{{labels.cancel}}</button>
         <button vts-button (click)="onCreateAnother()" vtsType="default"
           [ngStyle]="{'margin-right': '8px', 'border': '1px solid #737373', 'border-radius': '6px', 'color': '#737373', 'width': '20vw'}" [disabled]="!formGroup.valid"><i
-            vts-icon vtsType="AddToPhotosDoutone"></i>Create and another</button>
+            vts-icon vtsType="AddToPhotosDoutone"></i>{{labels.createAnother}}</button>
         <button vts-button (click)="onSave()" vtsType="primary" style="width: 8vw; border-radius: 6px;" [disabled]="!formGroup.valid"><i vts-icon
-            vtsType="AddCircle"></i>Create</button>
+            vtsType="AddCircle"></i>{{labels.create}}</button>
       </div>
     </ng-container>
   </ng-template>
@@ -40,8 +40,8 @@
   </ng-container>
   <div *vtsModalFooter>
     <button *ngIf="mode!=='view'" vts-button vtsType="primary" style="margin-right: 8px"
-      (click)="onSave()">Save</button>
-    <button vts-button (click)="closeDrawer()">Close</button>
+      (click)="onSave()">{{labels.save}}</button>
+    <button vts-button (click)="closeDrawer()">{{labels.close}}</button>
   </div>
 </vts-modal>
 
@@ -158,15 +158,15 @@
           <ul vts-menu class="drag-area">
             <li vts-menu-item (click)="onChangeToEdit()">
               <i class="pr-8" vts-icon vtsType="EditDoutone"></i>
-              Edit
+              {{labels.edit}}
             </li>
             <li vts-menu-item (click)="onChangeStatusItem()">
               <vts-switch class="pr-8" style="margin-left: -6px;" vtsSize="sm">
-              </vts-switch><span style="padding-left: 6px;">Enable/Disable</span>
+              </vts-switch><span style="padding-left: 6px;">{{labels.enabled}}</span>
             </li>
             <li vts-menu-item style="color: #EE0033;" (click)="onDeleteItem()">
               <i class="pr-8" vts-icon vtsType="DeleteDoutone"></i>
-              Delete
+              {{labels.delete}}
             </li>
           </ul>
         </vts-dropdown-menu>

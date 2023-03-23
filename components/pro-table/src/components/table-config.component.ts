@@ -1,4 +1,5 @@
-import { VtsButtonConfig, VtsTabConfig } from './../pro-table.type';
+import { VtsProTableRenderService } from './../pro-table-render.service';
+import { VtsButtonConfig, VtsTabConfig, VtsProTableFixedButtons } from './../pro-table.type';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import {
   ChangeDetectionStrategy,
@@ -94,13 +95,16 @@ export class VtsProTableConfigComponent implements OnDestroy, OnInit {
   allChecked = false;
   indeterminateConfig = true;
   visibleExport = false;
+  labels: VtsProTableFixedButtons = {};
 
   constructor(
     private elementRef: ElementRef,
     @Optional() private directionality: Directionality,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private renderService: VtsProTableRenderService
   ) {
     this.elementRef.nativeElement.classList.add('vts-protable-config');
+    this.renderService.labelRender$.subscribe(res => { this.labels = res });
   }
 
   ngOnInit(): void {

@@ -7,17 +7,17 @@
   <div vts-col class="btn-control-area">
     <button vts-button vtsType="default" [vtsSize]="buttonSize" class="btn-default" (click)="onClickAction('create')">
       <span vts-icon vtsType="AddDoutone"></span>
-      New
+      {{vtsFixedButtonsConfig.new}}
     </button>
     <button vts-button class="btn-table-config" vtsType="default" [vtsSize]="buttonSize" class="btn-default"
       (click)="onClickAction('export')">
       <span vts-icon vtsType="CloudUploadDoutone"></span>
-      Export
+      {{vtsFixedButtonsConfig.export}}
     </button>
     <button vts-button class="btn-table-config" vtsType="default" [vtsSize]="buttonSize" class="btn-default"
       (click)="onClickAction('import')">
       <span vts-icon vtsType="SaveAltDoutone"></span>
-      Import
+      {{vtsFixedButtonsConfig.import}}
     </button>
 
     <ng-container *ngIf="vtsMoreActionConfig">
@@ -25,7 +25,7 @@
         [vtsDropdownMenu]="moreAction">
         <button vts-button vtsType="primary" class="btn-table-config btn-more-action btn-more-action-content"
           [vtsSize]="buttonSize" vts-dropdown vtsTrigger="click">
-          More action
+          {{vtsFixedButtonsConfig.moreActions}}
         </button>
         <button vts-button vtsType="primary" class="btn-table-config btn-more-action btn-more-action-arrow"
           [vtsSize]="buttonSize" vts-dropdown vtsTrigger="click">
@@ -60,7 +60,8 @@
       [filterGroupConfig]="vtsFilterGroupConfig" [modalUploadConfig]="vtsModalUploadConfig"
       [modalDeleteConfig]="vtsModalDeleteConfig" [moreActionConfig]="vtsMoreActionConfig"
       (reloadTable)="reloadTable($event)" (searchingByKey)="onSearchingByKey($event)"
-      (changePageIndex)="changePageIndex($event)" (deleteData)="onDeleteData($event)" (modifiedData)="onEditData($event)">
+      (changePageIndex)="changePageIndex($event)" (deleteData)="onDeleteData($event)"
+      (modifiedData)="onEditData($event)">
     </vts-table-config>
   </vts-spin>
 </ng-template>

@@ -32,7 +32,7 @@ import { filter, startWith, takeUntil } from 'rxjs/operators';
 type VtsLegacyButtonType = 'primary' | 'default' | 'link' | 'text' | null;
 
 export type VtsButtonType = VtsLegacyButtonType;
-export type VtsButtonShape = 'circle' | 'round' | 'square';
+export type VtsButtonShape = 'circle' | 'rounded' | 'square';
 export type VtsButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 const VTS_CONFIG_MODULE_NAME: VtsConfigKey = 'button';

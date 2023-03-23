@@ -18,7 +18,7 @@
           <tr>
             <th [vtsChecked]="checked" [vtsIndeterminate]="indeterminate" (vtsCheckedChange)="onAllChecked($event)">
             </th>
-            <th style="padding: 16px 16px;">#</th>
+            <th style="padding: 16px 16px;">{{labels.order}}</th>
             <ng-container *ngFor="let property of properties">
               <ng-container *ngIf="property.headerTitle && property.headerTitle != null">
                 <th [vtsSortFn]="sortFn" [vtsSortDirections]="sortDirections" *ngIf="property.checked"
@@ -27,7 +27,7 @@
                 </th>
               </ng-container>
             </ng-container>
-            <th style="padding: 16px 16px;">Action</th>
+            <th style="padding: 16px 16px;">{{labels.actions}}</th>
           </tr>
         </thead>
         <tbody class="vts-protable-tbody">
@@ -57,16 +57,16 @@
                   <ul vts-menu class="drag-area">
                     <li vts-menu-item (click)="onEditDataItem(data.id)">
                       <i class="pr-8" vts-icon vtsType="EditDoutone"></i>
-                      Edit
+                      {{labels.edit}}
                     </li>
                     <li vts-menu-item (click)="changeStatusItem(data.id)">
                       <vts-switch class="pr-8" style="margin-left: -6px;" vtsSize="sm" [(ngModel)]="data.disabled"
                         (click)="changeStatusItem(data.id)">
-                      </vts-switch><span style="padding-left: 6px;">Enable/Disable</span>
+                      </vts-switch><span style="padding-left: 6px;">{{labels.enabled}}</span>
                     </li>
                     <li vts-menu-item (click)="showDeleteItemModal(data.id)" style="color: #EE0033;">
                       <i class="pr-8" vts-icon vtsType="DeleteDoutone"></i>
-                      Delete
+                      {{labels.delete}}
                     </li>
                   </ul>
                 </vts-dropdown-menu>

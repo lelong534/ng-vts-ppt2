@@ -1,3 +1,5 @@
+import { VtsProTableFixedButtons } from './../pro-table.type';
+import { VtsProTableRenderService } from './../pro-table-render.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { VtsUploadChangeParam } from '@ui-vts/ng-vts/upload';
 import { VtsModalUploadConfig } from '../pro-table.type';
@@ -7,7 +9,9 @@ import { VtsModalUploadConfig } from '../pro-table.type';
   templateUrl: 'table-upload.component.html'
 })
 export class VtsTableUploadComponent implements OnInit {
-  constructor() { }
+  constructor(
+    private renderService: VtsProTableRenderService
+  ) { }
 
   @Input() isVisibleUpload: boolean = false;
   @Input() config: VtsModalUploadConfig | undefined;
@@ -16,7 +20,11 @@ export class VtsTableUploadComponent implements OnInit {
   @Output() submit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() change: EventEmitter<VtsUploadChangeParam> = new EventEmitter<VtsUploadChangeParam>();
 
-  ngOnInit() { }
+  labels: VtsProTableFixedButtons = {};
+
+  ngOnInit() {
+    this.renderService.labelRender$.subscribe(res => {this.labels = {...res}})
+   }
 
   onCancel() {
     this.cancel.emit();
@@ -31,7 +39,7 @@ export class VtsTableUploadComponent implements OnInit {
   }
 
   getMaxFileSizeInText() {
-    let text = "và dung lượng không quá ";
+    let text = this.labels.uploadText?.maxSize;
     if (this.config && this.config.maxFileSizeInKB) {
       let maxSize: number = this.config.maxFileSizeInKB;
       if (maxSize < 1024) {

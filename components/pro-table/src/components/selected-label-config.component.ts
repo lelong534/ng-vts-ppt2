@@ -1,4 +1,5 @@
-import { VtsButtonConfig } from './../pro-table.type';
+import { VtsProTableRenderService } from './../pro-table-render.service';
+import { VtsButtonConfig, VtsProTableFixedButtons } from './../pro-table.type';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import {
   ChangeDetectionStrategy,
@@ -83,7 +84,7 @@ export class VtsProTableSelectedLabelConfigComponent implements OnDestroy, OnIni
   controlArray: Array<{ index: number; show: boolean, title: string | undefined, controlKey: string }> = [];
 
   @Input() selectedItemsAmount = 0;
-  @Input() moreActionConfig:  VtsButtonConfig[] | undefined;
+  @Input() moreActionConfig: VtsButtonConfig[] | undefined;
 
   @Output() clearAllSelectedItems = new EventEmitter<boolean>();
   @Output() deleteSelectedItems = new EventEmitter<boolean>();
@@ -91,10 +92,16 @@ export class VtsProTableSelectedLabelConfigComponent implements OnDestroy, OnIni
   @Output() moreActionEvents = new EventEmitter<boolean[]>();
 
   buttonSize: VtsButtonSize = 'xs';
+  labels: VtsProTableFixedButtons = {};
 
-  constructor(private elementRef: ElementRef, @Optional() private directionality: Directionality) {
+  constructor(
+    private elementRef: ElementRef,
+    @Optional() private directionality: Directionality,
+    private renderService: VtsProTableRenderService
+  ) {
     // TODO: move to host after View Engine deprecation
     this.elementRef.nativeElement.classList.add('vts-search-form');
+    this.renderService.labelRender$.subscribe(res => { this.labels = res })
   }
 
   ngOnInit(): void {
@@ -106,7 +113,7 @@ export class VtsProTableSelectedLabelConfigComponent implements OnDestroy, OnIni
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedItemsAmount) {
-      
+
     }
   }
 
