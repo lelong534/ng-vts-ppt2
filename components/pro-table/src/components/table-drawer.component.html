@@ -1,6 +1,7 @@
 <!-- Open with drawer -->
 <vts-drawer [vtsBodyStyle]="{ overflow: 'auto' }" [vtsMaskClosable]="false" [vtsWidth]="'36vw'"
-  [vtsBodyStyle]="{'padding':'0'}" [vtsVisible]="visibleDrawer" [vtsFooter]="mode!='view' ? footerTpl : ''" (vtsOnClose)="closeDrawer()">
+  [vtsBodyStyle]="{'padding':'0'}" [vtsVisible]="visibleDrawer" [vtsFooter]="mode!='view' ? footerTpl : ''"
+  (vtsOnClose)="closeDrawer()">
 
   <ng-container *vtsDrawerContent>
     <ng-container *ngIf="mode!='view'; else viewModeTemp">
@@ -11,8 +12,8 @@
   <ng-template #footerTpl>
     <ng-container *ngIf="mode=='edit'">
       <div style="display: flex; justify-content: right; align-items: center; padding: 0 56px;">
-        <button vts-button vtsType="primary" (click)="onSave()" style="border-radius: 6px;" [disabled]="!formGroup.valid">{{labels.save}}</button>
-        <button vts-button vtsType="default" (click)="closeDrawer()" style="border-radius: 6px;">{{labels.cancel}}</button>
+        <button vts-button vtsType="primary" (click)="onSave()" style="border-radius: 6px;"
+          [disabled]="!formGroup.valid">{{labels.save}}</button>
       </div>
     </ng-container>
     <ng-container *ngIf="mode=='create' || mode=='create-another'">
@@ -21,10 +22,10 @@
           style="margin-right: 8px; border: 1px solid #737373; border-radius: 6px; color: #737373; width: 8vw;"><i
             vts-icon vtsType="Close"></i>{{labels.cancel}}</button>
         <button vts-button (click)="onCreateAnother()" vtsType="default"
-          [ngStyle]="{'margin-right': '8px', 'border': '1px solid #737373', 'border-radius': '6px', 'color': '#737373', 'width': '20vw'}" [disabled]="!formGroup.valid"><i
-            vts-icon vtsType="AddToPhotosDoutone"></i>{{labels.createAnother}}</button>
-        <button vts-button (click)="onSave()" vtsType="primary" style="width: 8vw; border-radius: 6px;" [disabled]="!formGroup.valid"><i vts-icon
-            vtsType="AddCircle"></i>{{labels.create}}</button>
+          [ngStyle]="{'margin-right': '8px', 'border': '1px solid #737373', 'border-radius': '6px', 'color': '#737373', 'width': '20vw'}"
+          [disabled]="!formGroup.valid"><i vts-icon vtsType="AddToPhotosDoutone"></i>{{labels.createAnother}}</button>
+        <button vts-button (click)="onSave()" vtsType="primary" style="width: 8vw; border-radius: 6px;"
+          [disabled]="!formGroup.valid"><i vts-icon vtsType="AddCircle"></i>{{labels.create}}</button>
       </div>
     </ng-container>
   </ng-template>

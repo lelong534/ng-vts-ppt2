@@ -111,8 +111,8 @@
 <!-- Create, view, edit -->
 <table-drawer [headers]="properties" [open]="visibleDrawer" [drawerConfig]="drawerConfig" [listStatus]="listStatus"
   [mode]="mode" [data]="drawerData" (close)="closeDrawer()" (modeChanger)="onModeChanger($event)"
-  (createAnotherData)="onCreateAnotherData($event)" (changeItemStatus)="onChangeItemStatus($event)" (editDataChanger)="onEditDataChanger($event)"
-  (deleteItem)="onDeleteItem($event)"></table-drawer>
+  (createAnotherData)="onCreateAnotherData($event)" (changeItemStatus)="onChangeItemStatus($event)"
+  (editDataChanger)="onEditDataChanger($event)" (deleteItem)="onDeleteItem($event)"></table-drawer>
 
 <!-- Modal download -->
 <vts-drawer [vtsVisible]="visibleExport" [vtsPlacement]="'bottom'" [vtsMask]="false" vtsHeight="80px">

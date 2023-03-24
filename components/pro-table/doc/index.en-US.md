@@ -54,6 +54,7 @@ import { VtsProTableModule } from '@ui-vts/ng-vts/pro-table';
 
 ### TabGroup Configuration
 `VtsTabGroup` is a format for table's tabs defination.
+
 | Property | Description | Type | Default |
 | -------- | ----------- | ---- | ------- |
 | `[tabProperty]` | Property key for tabs filtering | `string` |

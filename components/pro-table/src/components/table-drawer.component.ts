@@ -159,6 +159,8 @@ export class ProtableDrawerComponent implements OnInit, OnChanges {
   }
 
   closeDrawer() {
+    this.visibleDrawer = false;
+    this.open = false;
     this.close.emit(false);
   }
 

@@ -70,7 +70,10 @@ import { VtsFilterTriggerComponent } from './components/filter-trigger.component
     VtsFilterTriggerComponent
   ],
   exports: [
-    VtsProTableContainerComponent
+    VtsProTableContainerComponent,
+    VtsProTableGroupFilterComponent,
+    VtsProTableSelectedLabelConfigComponent,
+    VtsProTableSelectionComponent
   ],
   imports: [
     BidiModule,

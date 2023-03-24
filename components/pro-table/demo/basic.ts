@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { VtsButtonConfig, VtsDrawerConfig, VtsModalDeleteConfig, VtsModalUploadConfig, VtsPropertyType, VtsTabGroupConfig, VtsRequest, VtsStatusConfig } from '@ui-vts/ng-vts/pro-table';
+import { VtsButtonConfig, VtsDrawerConfig, VtsModalDeleteConfig, VtsModalUploadConfig, VtsPropertyType, VtsTabGroupConfig, VtsRequest, VtsStatusConfig, VtsProTableFixedButtons } from '@ui-vts/ng-vts/pro-table';
 import { Component, OnInit } from '@angular/core';
 import { VtsSafeAny } from '@ui-vts/ng-vts/core/types';
 import { forkJoin } from 'rxjs';
@@ -9,6 +9,7 @@ import { forkJoin } from 'rxjs';
   template: `
     <vts-protable-container 
       [vtsTableTitle]="tableTitle"
+      [vtsFixedButtonsConfig]="labelsConfig"
       [vtsMoreActionConfig]="moreAction"
       [vtsTabGroupConfig]="tabGroupConfig"
       [vtsListData]="listData"
@@ -38,6 +39,44 @@ export class VtsDemoProTableBasicComponent implements OnInit {
   }
 
   tableTitle = "Table Title";
+  labelsConfig: VtsProTableFixedButtons = {
+    new: 'Thêm mới',
+    export: 'Export',
+    import: 'Import',
+    edit: 'Sửa',
+    delete: 'Xóa',
+    enabled: 'Enable / Disable',
+    deleteSelected: 'Delete selected',
+    clearSelected: 'Clear selected',
+    clearSubtext: ' items is selected',
+    exportSelected: 'Export selected',
+    order: '#',
+    actions: 'Action',
+    moreActions: 'More actions',
+    searchAll: 'Search all ...',
+    close: 'Close',
+    save: 'Save',
+    reset: 'Reset',
+    search: 'Search',
+    submit: 'Submit',
+    rowHeight: {
+      normal: 'Normal',
+      expand: 'Expand',
+      narrow: 'Narrow'
+    },
+    displayAll: "Display all columns",
+    create: 'Create',
+    createAnother: 'Create and create another',
+    cancel: 'Cancle',
+    chooseFile: 'Choose file',
+    uploadText: {
+      prefix: 'Drag and drop image/video or ',
+      subfix: ' for upload',
+      permiss: 'Only for datatype: ',
+      maxSize: ' and maximum of file volumn is not over '
+    }
+  };
+
   moreAction: VtsButtonConfig[] = [
     {
       buttonText: 'Clear selected',
@@ -423,7 +462,7 @@ export class VtsDemoProTableBasicComponent implements OnInit {
   total: number = 0;
 
   onActionChanger(event: string) {
-    switch(event) {
+    switch (event) {
       case 'reload': {
         this.getTotalDataWithTabConfig();
         break;
@@ -447,7 +486,7 @@ export class VtsDemoProTableBasicComponent implements OnInit {
             }
             urlsFork.push(this.httpClient.get(url, { observe: 'response' }));
           }
-  
+
           let { onSuccess, onError } = this.request;
           forkJoin(urlsFork).subscribe(res => {
             this.totalDataWithFilter = res;
@@ -507,7 +546,7 @@ export class VtsDemoProTableBasicComponent implements OnInit {
     }
   }
 
-  onDeleteData(event: Set<string|number>) {
+  onDeleteData(event: Set<string | number>) {
     if (event) {
       console.log(event);
     }
