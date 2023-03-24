@@ -1,4 +1,3 @@
-import { VtsProTableModule } from '@ui-vts/ng-vts/pro-table';
 import { VtsProLayoutModule } from '@ui-vts/ng-vts/prolayout';
 import { VtsMenuModule } from '@ui-vts/ng-vts/menu';
 import { VtsIconModule } from '@ui-vts/ng-vts/icon';
@@ -16,6 +15,5 @@ export const moduleList = [
     VtsButtonModule, 
     VtsSwitchModule,
     VtsDividerModule,
-    VtsTagModule,
-    VtsProTableModule
+    VtsTagModule
 ];

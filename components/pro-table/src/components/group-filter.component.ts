@@ -55,7 +55,7 @@ import { VtsProTableRenderService } from '../pro-table-render.service';
                     'padding':'12px 0px'
                   }"
                   vtsBorderless
-                  style="width: 100%;"
+                  [ngStyle]="compWidth <= 1000 ? {'max-width': '7vw'} : {}"
                 >
                   <vts-option *ngFor="let option of filter.filterValues" [vtsLabel]="option.label" [vtsValue]="option.value"></vts-option>
                 </vts-select>
@@ -272,6 +272,7 @@ export class VtsProTableGroupFilterComponent implements OnDestroy, OnInit, OnCha
   listOfFilter = [];
   isVisibleModal = false;
   labels: VtsProTableFixedButtons = {};
+  compWidth: number = window.innerWidth;
 
   constructor(
     private elementRef: ElementRef,
@@ -284,7 +285,7 @@ export class VtsProTableGroupFilterComponent implements OnDestroy, OnInit, OnCha
     this.elementRef.nativeElement.classList.add('vts-search-form');
     this.renderService.labelRender$.subscribe(res => {
       this.labels = {...res};
-    })
+    });
   }
 
   ngOnInit(): void {
