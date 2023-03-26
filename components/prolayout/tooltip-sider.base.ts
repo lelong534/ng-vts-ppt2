@@ -43,6 +43,7 @@ import {
 import { isNotNil, toBoolean } from '@ui-vts/ng-vts/core/util';
 import { Subject, asapScheduler } from 'rxjs';
 import { distinctUntilChanged, takeUntil, filter, delay } from 'rxjs/operators';
+import { ProlayoutService } from './pro-layout.service';
 import { MenuItemProLayout } from './pro-layout.types';
 
 export interface PropertyMapping {
@@ -140,6 +141,7 @@ export abstract class SiderTooltipBaseDirective implements OnChanges, OnDestroy,
 
   constructor(
     public elementRef: ElementRef,
+    private service: ProlayoutService,
     protected hostView: ViewContainerRef,
     protected resolver: ComponentFactoryResolver,
     protected renderer: Renderer2,
@@ -162,6 +164,7 @@ export abstract class SiderTooltipBaseDirective implements OnChanges, OnDestroy,
   ngAfterViewInit(): void {
     this.createComponent();
     this.registerTriggers();
+    this.registerTooltipListener();
   }
 
   ngOnDestroy(): void {
@@ -179,12 +182,24 @@ export abstract class SiderTooltipBaseDirective implements OnChanges, OnDestroy,
   private checkIfMenuItemCanShow(el: HTMLElement): boolean {
     let hoverChildren: NodeList | null = el?.querySelectorAll('.vts-menu-item:hover, .vts-menu-submenu:hover');
     if (hoverChildren == null || hoverChildren?.length == 0) {
+        this.service.showTooltip();
         return true;
     }
     if(this.visible){
         this.hide();
     }
     return false;
+  }
+
+  /**
+   * listen if any new tooltip wants to show, hide current
+   */
+  registerTooltipListener(){
+    this.service.tooltipChange$.subscribe((wantToShow: boolean | undefined) => {
+        if(wantToShow){
+            this.hide();
+        }
+    })
   }
 
   show(): void {    

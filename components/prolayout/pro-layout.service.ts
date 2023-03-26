@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 import { MenuItemProLayout } from './pro-layout.types';
 
 @Injectable({
@@ -15,6 +15,8 @@ export class ProlayoutService {
     useSplitMenuChange$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
     menuHeaderChange$: ReplaySubject<MenuItemProLayout[]> = new ReplaySubject<MenuItemProLayout[]>(1);
     menuSiderChange$: ReplaySubject<MenuItemProLayout[]> = new ReplaySubject<MenuItemProLayout[]>(1);
+
+    tooltipChange$: Subject<boolean> = new Subject<boolean>();
 
     onChangeFixedSider(isFixed: boolean): void {
         this.fixedSiderChange$.next(isFixed);
@@ -46,5 +48,9 @@ export class ProlayoutService {
     
     onChangeMenuSider(data: MenuItemProLayout[]): void {
         this.menuSiderChange$.next(data);
+    }
+
+    showTooltip(): void {
+        this.tooltipChange$.next(true);
     }
 }

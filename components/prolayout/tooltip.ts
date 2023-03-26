@@ -35,6 +35,7 @@ import {
 } from './tooltip-sider.base';
 import { InputBoolean } from '@ui-vts/ng-vts/core/util';
 import { MenuItemProLayout } from './pro-layout.types';
+import { ProlayoutService } from './pro-layout.service';
 
 @Directive({
   selector: '[sider-tooltip]',
@@ -70,12 +71,13 @@ export class SiderTooltipDirective extends SiderTooltipBaseDirective {
 
   constructor(
     elementRef: ElementRef,
+    service: ProlayoutService,
     hostView: ViewContainerRef,
     resolver: ComponentFactoryResolver,
     renderer: Renderer2,
     @Host() @Optional() noAnimation?: VtsNoAnimationDirective
   ) {
-    super(elementRef, hostView, resolver, renderer, noAnimation);
+    super(elementRef, service, hostView, resolver, renderer, noAnimation);
   }
 
   protected override getProxyPropertyMap(): PropertyMapping {
