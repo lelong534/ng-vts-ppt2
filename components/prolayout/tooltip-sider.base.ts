@@ -173,7 +173,21 @@ export abstract class SiderTooltipBaseDirective implements OnChanges, OnDestroy,
     this.removeTriggerListeners();
   }
 
-  show(): void {
+  /**
+   * if a child is hover, this parent element will not show tooltip, the child does
+   */
+  private checkIfMenuItemCanShow(el: HTMLElement): boolean {
+    let hoverChildren: NodeList | null = el?.querySelectorAll('.vts-menu-item:hover, .vts-menu-submenu:hover');
+    if (hoverChildren == null || hoverChildren?.length == 0) {
+        return true;
+    }
+    if(this.visible){
+        this.hide();
+    }
+    return false;
+  }
+
+  show(): void {    
     this.component?.show();
   }
 
@@ -240,27 +254,30 @@ export abstract class SiderTooltipBaseDirective implements OnChanges, OnDestroy,
       let overlayElement: HTMLElement;
       this.triggerDisposables.push(
         this.renderer.listen(el, 'mouseenter', () => {
-          console.log(el);
-          this.delayEnterLeave(true, true, this._mouseEnterDelay);
+          if(this.checkIfMenuItemCanShow(el)){
+            this.delayEnterLeave(true, true, this._mouseEnterDelay);   
+          }
         })
       );
       this.triggerDisposables.push(
-        this.renderer.listen(el, 'mouseleave', () => {
-          this.delayEnterLeave(true, false, this._mouseLeaveDelay);
-          if (this.component?.overlay.overlayRef && !overlayElement) {
-            overlayElement = this.component.overlay.overlayRef.overlayElement;
-            this.triggerDisposables.push(
-              this.renderer.listen(overlayElement, 'mouseenter', () => {
-                this.delayEnterLeave(false, true, this._mouseEnterDelay);
-              })
-            );
-            this.triggerDisposables.push(
-              this.renderer.listen(overlayElement, 'mouseleave', () => {
-                this.delayEnterLeave(false, false, this._mouseLeaveDelay);
-              })
-            );
-          }
-        })
+          this.renderer.listen(el, 'mouseleave', () => {
+              if (this.checkIfMenuItemCanShow(el)) {
+                  this.delayEnterLeave(true, false, this._mouseLeaveDelay);
+                  if (this.component?.overlay.overlayRef && !overlayElement) {
+                      overlayElement = this.component.overlay.overlayRef.overlayElement;
+                      this.triggerDisposables.push(
+                          this.renderer.listen(overlayElement, 'mouseenter', () => {
+                              this.delayEnterLeave(false, true, this._mouseEnterDelay);
+                          })
+                      );
+                      this.triggerDisposables.push(
+                          this.renderer.listen(overlayElement, 'mouseleave', () => {
+                              this.delayEnterLeave(false, false, this._mouseLeaveDelay);
+                          })
+                      );
+                  }
+              }
+          })
       );
     } else if (trigger === 'focus') {
       this.triggerDisposables.push(this.renderer.listen(el, 'focusin', () => this.show()));
