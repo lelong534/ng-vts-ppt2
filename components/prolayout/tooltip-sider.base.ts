@@ -137,7 +137,8 @@ export abstract class SiderTooltipBaseDirective implements OnChanges, OnDestroy,
 
   private delayTimer?: number | ReturnType<typeof setTimeout>;
 
-  protected menuItem?: MenuItemProLayout | null;
+  protected menuItem: MenuItemProLayout | null= null;
+  private isMouseEnter: boolean = false;
 
   constructor(
     public elementRef: ElementRef,
@@ -195,9 +196,21 @@ export abstract class SiderTooltipBaseDirective implements OnChanges, OnDestroy,
    * listen if any new tooltip wants to show, hide current
    */
   registerTooltipListener(){
-    this.service.tooltipChange$.subscribe((wantToShow: boolean | undefined) => {
-        if(wantToShow){
+    this.service.tooltipChange$.subscribe((signal: boolean | null | MenuItemProLayout) => {
+        if(signal === true){
             this.hide();
+        }
+        // when mouse leaves the child, show tooltip on the nearest parent
+        else {
+            // signal is a menuitem
+            if(signal !== null && signal !== false){
+                if(this.isMouseEnter && this.menuItem?.children && this.menuItem?.children?.map(item => item.id).indexOf(signal.id) >= 0){
+                    this.show();
+                }
+            }
+            else {
+                this.hide();
+            }            
         }
     })
   }
@@ -269,24 +282,30 @@ export abstract class SiderTooltipBaseDirective implements OnChanges, OnDestroy,
       let overlayElement: HTMLElement;
       this.triggerDisposables.push(
         this.renderer.listen(el, 'mouseenter', () => {
+          this.isMouseEnter = true;
           if(this.checkIfMenuItemCanShow(el)){
             this.delayEnterLeave(true, true, this._mouseEnterDelay);   
           }
         })
       );
       this.triggerDisposables.push(
-          this.renderer.listen(el, 'mouseleave', () => {
+          this.renderer.listen(el, 'mouseleave', () => {            
+            this.isMouseEnter = false;
               if (this.checkIfMenuItemCanShow(el)) {
+                this.service.mouseLeaveChildTooltip(this.menuItem);
                   this.delayEnterLeave(true, false, this._mouseLeaveDelay);
                   if (this.component?.overlay.overlayRef && !overlayElement) {
                       overlayElement = this.component.overlay.overlayRef.overlayElement;
                       this.triggerDisposables.push(
                           this.renderer.listen(overlayElement, 'mouseenter', () => {
+                            this.isMouseEnter = true;
                               this.delayEnterLeave(false, true, this._mouseEnterDelay);
                           })
                       );
                       this.triggerDisposables.push(
                           this.renderer.listen(overlayElement, 'mouseleave', () => {
+                            this.isMouseEnter = false;
+                            this.service.mouseLeaveChildTooltip(this.menuItem);
                               this.delayEnterLeave(false, false, this._mouseLeaveDelay);
                           })
                       );

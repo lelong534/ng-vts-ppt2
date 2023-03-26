@@ -60,7 +60,7 @@ export class SiderTooltipDirective extends SiderTooltipBaseDirective {
   @Input('vtsTooltipType') override vtsType?: VtsTooltipType;
   @Input('vtsTooltipArrowPointAtCenter') @InputBoolean() override arrowPointAtCenter?: boolean;
   @Input() vtsTooltipColor?: string;
-  @Input('tooltipMenuItem')  override menuItem?: MenuItemProLayout | null;
+  @Input('tooltipMenuItem')  override menuItem: MenuItemProLayout | null=  null;
 
   // tslint:disable-next-line:no-output-rename
   @Output('vtsTooltipVisibleChange')

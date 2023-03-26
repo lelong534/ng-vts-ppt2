@@ -15,27 +15,31 @@ export class VtsDemoProlayoutBasicComponent {
       title: 'Parent 1',
       children: [
         {
+          id: '1.1',
           title: 'Child 1.1',
-          children: [{ title: 'Child 1.1.1' }, { title: 'Child 1.1.2', isSelected: true, url: "/" }],
+          children: [{ title: 'Child 1.1.1', id: '1.1.1' }, { title: 'Child 1.1.2', isSelected: true, url: "/", id: '1.1.2' }],
           isOpen: true
         },
-        { title: 'Child 1.2' }
+        { title: 'Child 1.2', id: '1.2' }
       ],
-      isOpen: true
+      isOpen: true,
+      id: '1'
     },
     {
       title: 'Parent 2',
       children: [
-        { title: 'Child 2.1', children: [{ title: 'Child 2.1.1' }, { title: 'Child 2.1.2' }] },
-        { title: 'Child 2.2' }
-      ]
+        { title: 'Child 2.1', id: '2.1', children: [{ title: 'Child 2.1.1', id: '2.1.1' }, { title: 'Child 2.1.2', id: '2.1.2' }] },
+        { title: 'Child 2.2', id: '2.2' }
+      ], 
+      id: '2'
     },
     {
       title: 'Parent 3',
       children: [
-        { title: 'Child 3.1', children: [{ title: 'Child 3.1.1' }, { title: 'Child 3.1.2' }] },
-        { title: 'Child 3.2' }
-      ]
+        { title: 'Child 3.1', id: '3.1' },
+        { title: 'Child 3.2', id: '3.2' }
+      ], 
+      id: '3'
     }
   ];
 

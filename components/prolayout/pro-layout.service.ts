@@ -16,7 +16,7 @@ export class ProlayoutService {
     menuHeaderChange$: ReplaySubject<MenuItemProLayout[]> = new ReplaySubject<MenuItemProLayout[]>(1);
     menuSiderChange$: ReplaySubject<MenuItemProLayout[]> = new ReplaySubject<MenuItemProLayout[]>(1);
 
-    tooltipChange$: Subject<boolean> = new Subject<boolean>();
+    tooltipChange$: Subject<boolean | MenuItemProLayout | null> = new Subject<boolean | MenuItemProLayout | null>();
 
     onChangeFixedSider(isFixed: boolean): void {
         this.fixedSiderChange$.next(isFixed);
@@ -52,5 +52,9 @@ export class ProlayoutService {
 
     showTooltip(): void {
         this.tooltipChange$.next(true);
+    }
+
+    mouseLeaveChildTooltip(menuItem: MenuItemProLayout | null){
+        this.tooltipChange$.next(menuItem);
     }
 }
