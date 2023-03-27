@@ -1,22 +1,20 @@
-<link rel="stylesheet" type="text/css"
-  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <div [ngStyle]="{'display': 'flex', 'flex-direction':'row', 'justify-content':vtsTableTitle?'space-between':'right'}">
   <ng-container *ngIf="vtsTableTitle">
     <span class="title-table">{{vtsTableTitle}}</span>
   </ng-container>
   <div vts-col class="btn-control-area">
     <button vts-button vtsType="default" [vtsSize]="buttonSize" class="btn-default" (click)="onClickAction('create')">
-      <span vts-icon vtsType="AddDoutone"></span>
+      <i vts-icon vtsType="AddDoutone:vts"></i>
       {{vtsFixedButtonsConfig.new}}
     </button>
     <button vts-button class="btn-table-config" vtsType="default" [vtsSize]="buttonSize" class="btn-default"
       (click)="onClickAction('export')">
-      <span vts-icon vtsType="CloudUploadDoutone"></span>
+      <i vts-icon vtsType="UploadOutline:antd"></i>
       {{vtsFixedButtonsConfig.export}}
     </button>
     <button vts-button class="btn-table-config" vtsType="default" [vtsSize]="buttonSize" class="btn-default"
       (click)="onClickAction('import')">
-      <span vts-icon vtsType="SaveAltDoutone"></span>
+      <i vts-icon vtsType="DownloadOutline:antd"></i>
       {{vtsFixedButtonsConfig.import}}
     </button>
 

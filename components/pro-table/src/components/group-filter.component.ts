@@ -70,7 +70,7 @@ import { VtsProTableRenderService } from '../pro-table-render.service';
         </div>
         <div>
           <a vts-button class="btn-table-config" vtsType="text" (click)="openFilterModal()">
-            <i class="fa fa-filter fa-2x" aria-hidden="true"></i>
+          <i vts-icon vtsType="FilterSolid:fa"></i>
           </a>
           <vts-badge [vtsCount]="filterGroupConfig?.length" [vtsStyle]="{'background': '#EE0033'}" style="margin-bottom: 16px">
             <a class="head-example"></a>
@@ -81,7 +81,7 @@ import { VtsProTableRenderService } from '../pro-table-render.service';
       <div vts-col class="btn-config-area" style="flex-basis: 20%">
         <a vts-button class="btn-table-config" vts-dropdown vtsType="text" 
           vtsTrigger="click" [vtsDropdownMenu]="menuSwapVert" [vtsPlacement]="'bottomRight'">
-          <i vts-icon vtsType="HeightDoutone"></i>
+          <i vts-icon vtsType="ColumnHeightOutline:antd"></i>
         </a>
         <vts-dropdown-menu #menuSwapVert="vtsDropdownMenu">
           <div class="triangle-up"></div>
@@ -92,7 +92,7 @@ import { VtsProTableRenderService } from '../pro-table-render.service';
           </ul>
         </vts-dropdown-menu>
         <a vts-button vts-dropdown vtsTrigger="click" vtsType="text" [vtsDropdownMenu]="menuSettings" class="btn-table-config" [vtsPlacement]="'bottomRight'">
-          <i vts-icon vtsType="ReorderDoutone"></i>
+          <i vts-icon vtsType="ViewColumnOutline:vts"></i>
         </a>
         <vts-dropdown-menu #menuSettings="vtsDropdownMenu" style="min-width: 12vw;">
           <div class="triangle-up"></div>
@@ -122,7 +122,7 @@ import { VtsProTableRenderService } from '../pro-table-render.service';
         </vts-dropdown-menu>
         
         <a vts-button class="btn-table-config" vtsType="text" (click)="reloadTableData()">
-          <i vts-icon vtsType="Sync"></i>
+          <i vts-icon vtsType="ReloadOutline:antd"></i>
         </a>
       </div>
     </div>
@@ -279,12 +279,12 @@ export class VtsProTableGroupFilterComponent implements OnDestroy, OnInit, OnCha
     @Optional() private directionality: Directionality,
     private fb: FormBuilder,
     private changeDetector: ChangeDetectorRef,
-    private renderService: VtsProTableRenderService  
+    private renderService: VtsProTableRenderService
   ) {
     // TODO: move to host after View Engine deprecation
     this.elementRef.nativeElement.classList.add('vts-search-form');
     this.renderService.labelRender$.subscribe(res => {
-      this.labels = {...res};
+      this.labels = { ...res };
     });
   }
 
