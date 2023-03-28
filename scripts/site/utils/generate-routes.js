@@ -66,7 +66,12 @@ function generateNav(componentsDocMap) {
     "toast",
     "tooltip",
     "typography",
-    "upload"
+    "upload",
+    "tab",
+    "modal",
+    "form",
+    "drawer",
+    "protable"
   ]
   console.log(filters)
   for (const key in componentsDocMap) {

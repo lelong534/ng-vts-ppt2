@@ -135,7 +135,7 @@ export class VtsDemoModalServiceComponent {
       vtsFooter: [
         {
           label: 'Close',
-          shape: 'round',
+          shape: 'rounded',
           onClick: () => modal.destroy()
         },
         {

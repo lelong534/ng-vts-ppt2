@@ -29,7 +29,7 @@ import { VtsIconDirective } from '@ui-vts/ng-vts/icon';
 import { Subject } from 'rxjs';
 import { filter, startWith, takeUntil } from 'rxjs/operators';
 
-type VtsLegacyButtonType = 'primary' | 'default' | 'link' | 'text' | null;
+type VtsLegacyButtonType = 'primary' | 'default' | 'link' | 'text' | 'dashed' | null;
 
 export type VtsButtonType = VtsLegacyButtonType;
 export type VtsButtonShape = 'circle' | 'rounded' | 'square';
@@ -51,7 +51,7 @@ const VTS_CONFIG_MODULE_NAME: VtsConfigKey = 'button';
   `,
   host: {
     '[class.vts-btn-primary]': `vtsType === 'primary'`,
-    // '[class.vts-btn-dashed]': `vtsType === 'dashed'`,
+    '[class.vts-btn-dashed]': `vtsType === 'dashed'`,
     '[class.vts-btn-link]': `vtsType === 'link'`,
     '[class.vts-btn-text]': `vtsType === 'text'`,
     '[class.vts-btn-circle]': `vtsShape === 'circle'`,
