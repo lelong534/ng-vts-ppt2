@@ -75,8 +75,7 @@ function generateNav(componentsDocMap) {
     "tab",
     "modal",
     "form",
-    "drawer",
-    "protable"
+    "drawer"
   ]
   console.log(filters)
   for (const key in componentsDocMap) {
