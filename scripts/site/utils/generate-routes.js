@@ -33,6 +33,7 @@ function generateLanguageData(itemData, language, reverseMap, key) {
 function generateNav(componentsDocMap) {
   const reverseMap = {};
   let routes = '';
+
   const filters = [
     "accordion",
     "alert",
@@ -44,6 +45,7 @@ function generateNav(componentsDocMap) {
     "chart",
     "checkbox",
     "date-picker",
+    "dropdown",
     "grid",
     "icon",
     "inplace",
@@ -53,6 +55,8 @@ function generateNav(componentsDocMap) {
     "layout",
     "menu",
     "panel",
+    "pagination",
+    "prolayout",
     "radio",
     "result",
     "select",
@@ -61,6 +65,7 @@ function generateNav(componentsDocMap) {
     "space",
     "splitter",
     "table",
+    "tag",
     "textarea",
     "time-picker",
     "toast",
@@ -85,7 +90,7 @@ function generateNav(componentsDocMap) {
     const experimental = componentsDocMap[key]['en'].experimental;
     routes += `  {'path': '${
       experimental ? 'experimental' : 'components'
-    }/${key}', 'loadChildren': () => import('./${key}/index.module').then(m => m.VtsDemo${moduleName}Module)},\n`;
+    }/${key}', 'loadChildren': () => import('./${key}/index.module').then(m => m.VtsDemo${moduleName}Module)}, \n`;
   }
   return { reverseMap, routes };
 }
