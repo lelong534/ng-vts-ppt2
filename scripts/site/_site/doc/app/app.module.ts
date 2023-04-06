@@ -60,12 +60,12 @@ const icons = Object.values(allIconTypes)
         {
           theme: 'default',
           url: '/default.css'
-        },
+        }
       ],
       defaultTheme: 'default'
     }),
     ColorSketchModule,
-    VtsIconModule.forChild(icons),
+    VtsIconModule.forRoot(icons),
     VtsGridModule,
     VtsAffixModule,
     VtsMenuModule,

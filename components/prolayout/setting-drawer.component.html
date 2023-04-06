@@ -1,4 +1,4 @@
-<div id="test">
+<div>
   <ng-template *ngIf="open; else closed">
     <button vts-button>
       <i vts-icon vtsType="Close"></i>
@@ -85,7 +85,7 @@
 <ng-template #themeColor>
   <h4 vts-typography vtsType="h4">Theme color</h4>
   <ng-container *ngFor="let color of listColors">
-    <vts-tag [vtsColor]="color.value" (click)="onChangeThemeColor(color.value)">
+    <vts-tag [vtsColor]="{background: color.value, color: '#fff'}" (click)="onChangeThemeColor(color.value)">
       <ng-container *ngIf="color.isChecked; else block">
         <i vts-icon vtsType="CheckCircle"></i>
       </ng-container>
@@ -103,9 +103,13 @@
 <ng-template #pageStyle>
   <h4 vts-typography vtsType="h4">Page style setting</h4>
   <vts-switch
-    [(ngModel)]="useDarkMode"
-    (ngModelChange)="onChangePageStyle($event)"
-    [vtsUnCheckedChildren]="'Light'"
-    [vtsCheckedChildren]="'Dark'"
+    [(ngModel)]="isDarkMode"
+    (ngModelChange)="onThemeChange()"
+    [vtsUnCheckedChildren]="unCheckedTemplate"
+    [vtsCheckedChildren]="checkedTemplate"
   ></vts-switch>
+  <ng-template #checkedTemplate><i vts-icon vtsType="Frown:antd"></i></ng-template>
+  <ng-template #unCheckedTemplate>
+    <i vts-icon vtsType="Smile:antd"></i>
+  </ng-template>
 </ng-template>

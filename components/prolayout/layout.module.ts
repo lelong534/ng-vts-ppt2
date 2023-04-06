@@ -22,7 +22,7 @@ import { VtsSwitchModule } from '@ui-vts/ng-vts/switch';
 import { VtsTagModule } from '@ui-vts/ng-vts/tag';
 import { VtsContentComponent } from './content.component';
 import { VtsFooterComponent } from './footer.component';
-import { VtsHeaderComponent } from './header.component';
+import { VtsHeaderComponent } from './pro-header.component';
 import { VtsProLayoutComponent } from './layout.component';
 import { VtsProlayoutMenuItemHorizontalComponent } from './menu-item-horizontal.component';
 import { VtsProlayoutMenuItemComponent } from './menu-item.component';
@@ -32,27 +32,31 @@ import { VtsSiderTriggerComponent } from './sider-trigger.component';
 import { VtsSiderComponent } from './sider.component';
 import { VtsProlayoutBreadCrumbComponent } from './breadcrumb.component';
 import { VtsDropDownModule } from '@ui-vts/ng-vts/dropdown';
+import { VtsNoAnimationModule } from '@ui-vts/ng-vts/core/no-animation';
+import { VtsOutletModule } from '@ui-vts/ng-vts/core/outlet';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { VtsToolTipModule } from '@ui-vts/ng-vts/tooltip';
+import { VtsThemeModule } from '@ui-vts/theme/services';
 
 @NgModule({
   declarations: [
+    VtsProLayoutContainerComponent,
     VtsHeaderComponent,
     VtsContentComponent,
     VtsFooterComponent,
     VtsSiderComponent,
     VtsSiderTriggerComponent,
     VtsProLayoutComponent,
-    VtsProLayoutContainerComponent,
     VtsProlayoutMenuItemComponent,
     VtsProlayoutMenuItemHorizontalComponent,
     VtsSettingDrawerComponent,
     VtsProlayoutBreadCrumbComponent
   ],
-  exports: [
-    VtsProLayoutContainerComponent
-  ],
+  exports: [VtsProLayoutContainerComponent, VtsFooterComponent],
   imports: [
     BidiModule,
     CommonModule,
+    OverlayModule,
     VtsIconModule,
     LayoutModule,
     PlatformModule,
@@ -67,7 +71,23 @@ import { VtsDropDownModule } from '@ui-vts/ng-vts/dropdown';
     VtsTagModule,
     VtsGridModule,
     VtsSelectModule,
-    VtsDropDownModule
+    VtsDropDownModule,
+    VtsNoAnimationModule,
+    VtsOutletModule,
+    VtsToolTipModule,
+    VtsThemeModule.forRoot({
+      themes: [
+        {
+          theme: 'dark',
+          url: '/dark.css'
+        },
+        {
+          theme: 'default',
+          url: '/default.css'
+        }
+      ],
+      defaultTheme: 'default'
+    })
   ]
 })
 export class VtsProLayoutModule {}

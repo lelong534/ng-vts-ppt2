@@ -1,103 +1,149 @@
-import { Component, OnInit, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ElementRef, Input } from '@angular/core';
-import { ThemeColorType } from './pro-layout.types';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ElementRef
+} from '@angular/core';
+import { ProlayoutService } from './pro-layout.service';
+import { VtsThemeColorType } from './pro-layout.types';
+import { VtsThemeService, VtsTheme, VtsThemeItem } from '@ui-vts/theme/services';
 
 @Component({
-    selector: 'vts-setting-drawer',
-    templateUrl: './setting-drawer.component.html',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'vts-setting-drawer',
+  templateUrl: './setting-drawer.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false
 })
-
 export class VtsSettingDrawerComponent implements OnInit {
+  constructor(
+    private elementRef: ElementRef,
+    private prolayoutService: ProlayoutService,
+    private themeService: VtsThemeService
+  ) {
+    this.elementRef.nativeElement.classList.add('vts-setting-drawer');
+    this.themeService.allTheme$.subscribe((d: VtsThemeItem[]) => (this.allThemes = d));
+    this.themeService.theme$.subscribe((d: VtsTheme | null) => {
+      this.currentTheme = d;
+      this.isDarkMode = d === 'dark';
+    });
+  }
 
-    constructor(private elementRef: ElementRef) {
-        this.elementRef.nativeElement.classList.add('vts-setting-drawer');
+  allThemes: VtsThemeItem[] = [];
+  currentTheme: VtsTheme | null = null;
+  isDarkMode: boolean = false;
+  open: boolean = false;
+  listColors: VtsThemeColorType[] = [
+    {
+      isChecked: true,
+      value: '#EE0033'
+    },
+    {
+      isChecked: false,
+      value: '#f50'
+    },
+    {
+      isChecked: false,
+      value: '#2db7f5'
+    },
+    {
+      isChecked: false,
+      value: '#87d068'
+    },
+    {
+      isChecked: false,
+      value: '#108ee9'
     }
+  ];
 
-    open: boolean = false;
-    listColors: ThemeColorType[] = [
-        {
-            isChecked: true,
-            value: '#EE0033'
-        },
-        {
-            isChecked: false,
-            value: '#f50'
-        },
-        {
-            isChecked: false,
-            value: '#2db7f5'
-        },
-        {
-            isChecked: false,
-            value: '#87d068'
-        },
-        {
-            isChecked: false,
-            value: '#108ee9'
-        },        
-    ]
+  isFixedHeader: boolean = false;
+  isFixedSider: boolean = true;
+  isShowHeader: boolean = true;
+  isShowSider: boolean = true;
+  isShowFooter: boolean = true;
+  useSplitMenu: boolean = false;
 
-    @Input() isFixedHeader: boolean = false;
-    @Input() isFixedSider: boolean = false;
-    @Input() isShowHeader: boolean = true;
-    @Input() isShowSider: boolean = true;
-    @Input() isShowFooter: boolean = true;
-    @Input() useDarkMode: boolean = false;
-    @Input() useSplitMenu: boolean = false;
+  @Output() vtsSetThemeColor: EventEmitter<string> = new EventEmitter<string>();
 
-    @Output() setFixedHeader: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() setFixedSider: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() setVisiblityHeader: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() setVisiblitySider: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() setVisiblityFooter: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() setThemeColor: EventEmitter<string> = new EventEmitter<string>();
-    @Output() setPageStyle: EventEmitter<boolean> = new EventEmitter<boolean>();
-    @Output() setSplitMenu: EventEmitter<boolean> = new EventEmitter<boolean>();
+  ngOnInit() {
+    this.prolayoutService.fixedSiderChange$.next(this.isFixedSider);
+    this.prolayoutService.fixedHeaderChange$.next(this.isFixedHeader);
+  }
 
-    ngOnInit() { }
+  closeDrawer() {
+    this.open = false;
+  }
 
-    closeDrawer() {
-        this.open = false;
+  openDrawer() {
+    this.open = true;
+  }
+
+  onChangeFixedSider(value: boolean) {
+    this.isFixedSider = value;
+    this.prolayoutService.onChangeFixedSider(value);
+    if (value && this.isFixedHeader) {
+      this.isFixedHeader = false;
+      this.prolayoutService.onChangeFixedHeader(false);
     }
-
-    openDrawer() {
-        this.open = true;
+    if (!this.isShowSider) {
+      this.isShowSider = true;
+      this.prolayoutService.onChangeVisibilitySider(true);
     }
+  }
 
-    onChangeFixedSider(value: boolean) {
-        this.setFixedSider.emit(value);
+  onChangeFixedHeader(value: boolean) {
+    this.isFixedHeader = value;
+    this.prolayoutService.onChangeFixedHeader(value);
+    if (value && this.isFixedSider) {
+      this.isFixedSider = false;
+      this.prolayoutService.onChangeFixedSider(false);
     }
+    if (!this.isShowHeader) {
+      this.isShowHeader = true;
+      this.prolayoutService.onChangeVisibilityHeader(true);
+    }
+  }
 
-    onChangeFixedHeader(value: boolean) {
-        this.setFixedHeader.emit(value);
+  onChangeVisiblityHeader(value: boolean) {
+    this.isShowHeader = value;
+    this.prolayoutService.onChangeVisibilityHeader(value);
+    if (!value && this.isFixedHeader) {
+      this.isFixedHeader = false;
+      this.prolayoutService.onChangeFixedHeader(false);
     }
+  }
 
-    onChangeVisiblityHeader(value: boolean) {
-        this.setVisiblityHeader.emit(value);
+  onChangeVisiblitySider(value: boolean) {
+    this.isShowSider = value;
+    this.prolayoutService.onChangeVisibilitySider(value);
+    if (!value && this.isFixedSider) {
+      this.isFixedSider = false;
+      this.prolayoutService.onChangeFixedSider(false);
     }
+  }
 
-    onChangeVisiblitySider(value: boolean) {
-        this.setVisiblitySider.emit(value);
-    }
+  onChangeVisiblityFooter(value: boolean) {
+    this.isShowFooter = value;
+    this.prolayoutService.onChangeVisibilityFooter(value);
+  }
 
-    onChangeVisiblityFooter(value: boolean) {
-        this.setVisiblityFooter.emit(value);
-    }
+  onChangeThemeColor(value: string) {
+    let cloneColors: VtsThemeColorType[] = [...this.listColors];
+    cloneColors.filter(c => c.isChecked)[0].isChecked = false;
+    cloneColors.filter(c => c.value == value)[0].isChecked = true;
+    this.listColors = [...cloneColors];
+    this.vtsSetThemeColor.emit(value);
+  }
 
-    onChangeThemeColor(value: string){
-        let cloneColors: ThemeColorType[] = [...this.listColors];
-        cloneColors.filter(c => c.isChecked)[0].isChecked = false;
-        cloneColors.filter(c => c.value == value)[0].isChecked = true;
-        this.listColors = [...cloneColors];
-        this.setThemeColor.emit(value);
-    }
+  onChangeSplitMenu(value: boolean) {
+    this.useSplitMenu = value;
+    this.prolayoutService.onChangeUseSplitMenu(value);
+  }
 
-    onChangePageStyle(value: boolean){
-        this.setPageStyle.emit(value);
-    }
-
-    onChangeSplitMenu(value: boolean){
-        this.setSplitMenu.emit(value);
-    }
+  onThemeChange() {
+    this.themeService.setTheme(this.currentTheme === 'default' ? 'dark' : 'default');
+  }
 }

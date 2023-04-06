@@ -35,10 +35,48 @@ function generateNav(componentsDocMap) {
   let routes = '';
 
   const filters = [
-    'table', 'button', 'icon', 'input', 'textarea', 'date-picker', 'time-picker', 'drawer', 'alert', 'switch', 'tag', 'menu',
-    'select', 'radio', 'checkbox', 'tooltip', 'slider', 'upload', 'chart', 'typography', 'space', 'grid', 'result',
-    'modal', 'form', 'drawer', 'pro-table', 'prolayout'
-  ];
+    "accordion",
+    "alert",
+    "avatar",
+    "breadcrumb",
+    "button",
+    "card",
+    "carousel",
+    "chart",
+    "checkbox",
+    "date-picker",
+    "dropdown",
+    "grid",
+    "icon",
+    "inplace",
+    "image",
+    "inplace",
+    "input",
+    "layout",
+    "menu",
+    "panel",
+    "pagination",
+    "prolayout",
+    "radio",
+    "result",
+    "select",
+    "skeleton",
+    "slider",
+    "space",
+    "splitter",
+    "table",
+    "tag",
+    "textarea",
+    "time-picker",
+    "toast",
+    "tooltip",
+    "typography",
+    "upload",
+    'modal', 
+    'form', 
+    'drawer', 
+    'pro-table'
+  ]
   console.log(filters)
   for (const key in componentsDocMap) {
     if (!filters.includes(key))
@@ -49,8 +87,9 @@ function generateNav(componentsDocMap) {
     const moduleName = capitalizeFirstLetter(camelCase(key));
     // const experimental = componentsDocMap[key]['zh'].experimental || componentsDocMap[key]['en'].experimental;
     const experimental = componentsDocMap[key]['en'].experimental;
-    routes += `  {'path': '${experimental ? 'experimental' : 'components'
-      }/${key}', 'loadChildren': () => import('./${key}/index.module').then(m => m.VtsDemo${moduleName}Module), data: { breadcrumbs: '${key}' }}, \n`;
+    routes += `  {'path': '${
+      experimental ? 'experimental' : 'components'
+    }/${key}', 'loadChildren': () => import('./${key}/index.module').then(m => m.VtsDemo${moduleName}Module)}, \n`;
   }
   return { reverseMap, routes };
 }

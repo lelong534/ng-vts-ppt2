@@ -62,11 +62,12 @@ The pro-layout.
 
 | Property | Description | Type | Default |
 | -------- | ----------- | ---- | ------- |
-| `[menuHeader]` | array of MenuItemProLayout displayed on the header | MenuItemProLayout[] | [] |
-| `[menuSider]` | array of MenuItemProLayout displayed on the sider | MenuItemProLayout[] | [] |
-| `[isFixedHeader]` | whether header is fixed | `boolean` | `false` |
-| `[isFixedSider]` | whether sider is fixed | `boolean` | `false` |
-| `[isShowHeader]` | whether header is shown | `boolean` | `true` |
-| `[isShowSider]` | whether sider is fixed | `boolean` | `true` |
-| `[isShowFooter]` | whether footer is fixed | `boolean` | `true` |
-| `[isMenuSplitted]` | menu items on header merged with menu items on sider, display on sider, remove all on header | `boolean` | `false` |
+| vtsMenuHeader | array of `VtsMenuItemProLayout` displayed on the header | `VtsMenuItemProLayout`[] | `[]` |
+| vtsMenuSider | array of `VtsMenuItemProLayout` displayed on the sider | `VtsMenuItemProLayout`[] | `[]` |
+| vtsHeaderTitle | title appears in the header | `string` | GOVERNMENT SOLUTION CENTER PLATFORM |
+| vtsAvatar | config for top right avatar area | `VtsAvatarUser` | `{ size: 'md', name: 'Shiba inu', subname: 'Viettel Solution' }` |
+| vtsAvatarMenu | config dropdown menu for avatar area | `VtsAvatarMenu`[] | `[]` |
+| vtsLogoUrl | logo link, or base64 string | `string` |  |
+| vtsBreadcrumbArray | array of breadcrumb items | `VtsBreadcrumbItem`[] | `[]` |
+| vtsSeparator | separator between breadcrumb items | `string \| TemplateRef<void> \| null` | `>` |
+| vtsFooterTemplate | footer template | `TemplateRef<void> \| null` | Copyright by Viettel Solution - Government Solution Center Platform |
