@@ -76,9 +76,8 @@ function generateNav(componentsDocMap) {
     const moduleName = capitalizeFirstLetter(camelCase(key));
     // const experimental = componentsDocMap[key]['zh'].experimental || componentsDocMap[key]['en'].experimental;
     const experimental = componentsDocMap[key]['en'].experimental;
-    routes += `  {'path': '${
-      experimental ? 'experimental' : 'components'
-    }/${key}', 'loadChildren': () => import('./${key}/index.module').then(m => m.VtsDemo${moduleName}Module)}, \n`;
+    routes += `  {'path': '${experimental ? 'experimental' : 'components'
+      }/${key}', 'loadChildren': () => import('./${key}/index.module').then(m => m.VtsDemo${moduleName}Module)}, \n`;
   }
   return { reverseMap, routes };
 }

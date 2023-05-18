@@ -3,7 +3,7 @@
  */
 
 import { TemplateRef } from '@angular/core';
-import { VtsSizeLDSType } from '@ui-vts/ng-vts/core/types';
+import { VtsSizeLMSType } from '@ui-vts/ng-vts/core/types';
 
 export type VtsMenuItemProLayout = {
   title: string;
@@ -24,37 +24,37 @@ export type VtsAvatarUser = {
   name?: string;
   subname?: string;
   imgUrl?: string;
-  size: VtsSizeLDSType;
+  size: VtsSizeLMSType;
 };
 
 export type VtsAvatarMenu = {
-    url: string,
-    label: string
-}
+  url: string;
+  label: string;
+};
 
 export type VtsNotificationConfig = {
-    type: VtsNotiPaneType,
-    overflowCount: number
-}
+  type: VtsNotiPaneType;
+  overflowCount: number;
+};
 
-export type VtsNotiPaneType = "drawer" | "menuContext";
+export type VtsNotiPaneType = 'drawer' | 'menuContext';
 
 export type VtsBlockUIConfig = {
   /**
    * decide if this feature is enabled or disabled
    */
-  isEnabled: boolean,
-  modalRef?: TemplateRef<void> | null,
-  modalLockTitle?: string,
-  modalUnlockTitle?: string,
-  cancelText?: string,
-  locktext?: string,
-  unlockText?: string
-}
+  isEnabled: boolean;
+  modalRef?: TemplateRef<void> | null;
+  modalLockTitle?: string;
+  modalUnlockTitle?: string;
+  cancelText?: string;
+  locktext?: string;
+  unlockText?: string;
+};
 
 export type VtsVisibilityConfig = {
-  searchIcon: boolean,
-  fullScreen: boolean,
-  lockScreen: boolean,
-  notifyIcon: boolean,
-}
+  searchIcon: boolean;
+  fullScreen: boolean;
+  lockScreen: boolean;
+  notifyIcon: boolean;
+};
