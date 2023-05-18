@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { VtsDrawerRef } from '@ui-vts/ng-vts/drawer';
-import { VtsMenuItemProLayout, VtsNotiPaneType } from './pro-layout.types';
+import { DEFAULT_LAYOUT_STATE, LAYOUT_STATE_STORE_KEY, VtsLayoutState, VtsMenuItemProLayout, VtsNotiPaneType } from './pro-layout.types';
 
 @Injectable({
   providedIn: 'root'
@@ -27,27 +27,56 @@ export class VtsProlayoutService {
 
   drawerNotifyRef: VtsDrawerRef | null = null;
 
+  // layout state
+  layoutState: VtsLayoutState = {
+    ...DEFAULT_LAYOUT_STATE
+  };
+
   onChangeFixedSider(isFixed: boolean): void {
+    let state = {...this.layoutState};
+    state.fixedSider = isFixed;
+    this.layoutState = {...state};
+    this.saveLayoutState();
     this.fixedSiderChange$.next(isFixed);
   }
 
   onChangeFixedHeader(isFixed: boolean): void {
+    let state = {...this.layoutState};
+    state.fixedHeader = isFixed;
+    this.layoutState = {...state};
+    this.saveLayoutState();
     this.fixedHeaderChange$.next(isFixed);
   }
 
   onChangeVisibilitySider(isShow: boolean): void {
+    let state = {...this.layoutState};
+    state.showSider = isShow;
+    this.layoutState = {...state};
+    this.saveLayoutState();
     this.visibilitySiderChange$.next(isShow);
   }
 
   onChangeVisibilityHeader(isShow: boolean): void {
+    let state = {...this.layoutState};
+    state.showHeader = isShow;
+    this.layoutState = {...state};
+    this.saveLayoutState();
     this.visibilityHeaderChange$.next(isShow);
   }
 
   onChangeVisibilityFooter(isShow: boolean): void {
+    let state = {...this.layoutState};
+    state.showFooter = isShow;
+    this.layoutState = {...state};
+    this.saveLayoutState();
     this.visibilityFooterChange$.next(isShow);
   }
 
   onChangeUseSplitMenu(isMenuSplitted: boolean): void {
+    let state = {...this.layoutState};
+    state.splitMenu = isMenuSplitted;
+    this.layoutState = {...state};
+    this.saveLayoutState();
     this.useSplitMenuChange$.next(isMenuSplitted);
   }
 
@@ -60,6 +89,10 @@ export class VtsProlayoutService {
   }
 
   onChangeCollapedSider(isCollapsed: boolean): void {
+    let state = {...this.layoutState};
+    state.collapsedSider = isCollapsed;
+    this.layoutState = {...state};
+    this.saveLayoutState();
     this.collapSiderChange$.next(isCollapsed);
   }
 
@@ -79,5 +112,20 @@ export class VtsProlayoutService {
 
   onChangeSettingDrawerState(visible: boolean) {
     this.settingDrawerStateChange$.next(visible);
+  }
+
+  getLayoutState(){
+    if(this.storage.getItem(LAYOUT_STATE_STORE_KEY)){
+      this.layoutState = <VtsLayoutState> JSON.parse(this.storage.getItem(LAYOUT_STATE_STORE_KEY)!)
+    }
+    return this.layoutState;
+  }
+
+  private storage = localStorage;
+  /**
+   * keep layout state for the next page reload
+   */
+  saveLayoutState(){
+    this.storage.setItem(LAYOUT_STATE_STORE_KEY,JSON.stringify(this.layoutState));
   }
 }

@@ -36,6 +36,22 @@ const icons = Object.values(allIconTypes)
           theme: 'default',
           url: '/default.css'
         },
+        {
+          theme: 'success',
+          url: '/success.css'
+        },
+        {
+          theme: 'warning',
+          url: '/warning.css'
+        },
+        {
+          theme: 'danger',
+          url: '/danger.css'
+        },
+        {
+          theme: 'info',
+          url: '/info.css'
+        }
       ],
       defaultTheme: 'default'
     }),

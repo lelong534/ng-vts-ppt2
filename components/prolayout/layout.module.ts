@@ -97,6 +97,22 @@ import { VtsModalModule } from '@ui-vts/ng-vts/modal';
         {
           theme: 'default',
           url: '/default.css'
+        },
+        {
+          theme: 'success',
+          url: '/success.css'
+        },
+        {
+          theme: 'warning',
+          url: '/warning.css'
+        },
+        {
+          theme: 'info',
+          url: '/info.css'
+        },
+        {
+          theme: 'danger',
+          url: '/danger.css'
         }
       ],
       defaultTheme: 'default'

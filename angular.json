@@ -45,6 +45,26 @@
                 "input": "site/doc/dark.less",
                 "bundleName": "dark",
                 "inject": false
+              },
+              {
+                "input": "site/doc/success.less",
+                "bundleName": "success",
+                "inject": false
+              },
+              {
+                "input": "site/doc/warning.less",
+                "bundleName": "warning",
+                "inject": false
+              },
+              {
+                "input": "site/doc/danger.less",
+                "bundleName": "danger",
+                "inject": false
+              },
+              {
+                "input": "site/doc/info.less",
+                "bundleName": "info",
+                "inject": false
               }
             ],
             "allowedCommonJsDependencies": [

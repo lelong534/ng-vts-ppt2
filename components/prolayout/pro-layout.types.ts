@@ -4,6 +4,7 @@
 
 import { TemplateRef } from '@angular/core';
 import { VtsSizeLMSType } from '@ui-vts/ng-vts/core/types';
+import { VtsTheme } from '@ui-vts/theme/services';
 
 export type VtsMenuItemProLayout = {
   title: string;
@@ -18,6 +19,7 @@ export type VtsMenuItemProLayout = {
 export type VtsThemeColorType = {
   value: string;
   isChecked: boolean;
+  themeValue: VtsTheme
 };
 
 export type VtsAvatarUser = {
@@ -58,3 +60,25 @@ export type VtsVisibilityConfig = {
   lockScreen: boolean;
   notifyIcon: boolean;
 };
+
+export type VtsLayoutState = {
+  fixedHeader: boolean,
+  fixedSider: boolean,
+  splitMenu: boolean,
+  showHeader: boolean,
+  showSider: boolean,
+  showFooter: boolean,
+  collapsedSider: boolean
+}
+
+export const DEFAULT_LAYOUT_STATE: VtsLayoutState = {
+  fixedHeader: false,
+  fixedSider: false,
+  splitMenu: true,
+  showHeader: true,
+  showSider: true,
+  showFooter: true,
+  collapsedSider: false
+}
+
+export const LAYOUT_STATE_STORE_KEY = 'layoutState'

@@ -164,6 +164,12 @@ export class VtsProLayoutContainerComponent implements OnInit, OnDestroy, OnChan
   }
 
   ngOnInit(): void {
+    // update based on saved layout state on localstorage, if exist
+    const currentState = this.prolayoutService.getLayoutState();
+    if(currentState){
+      this.prolayoutService.onChangeCollapedSider(currentState.collapsedSider)
+    }
+
     // emit changes when receiving menu
     this.prolayoutService.onChangeMenuHeader(this.vtsMenuHeader);
     this.prolayoutService.onChangeMenuSider(this.vtsMenuSider);
@@ -172,11 +178,13 @@ export class VtsProLayoutContainerComponent implements OnInit, OnDestroy, OnChan
     this.prolayoutService.fixedSiderChange$
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((isFixed: boolean) => {
+        console.log(this.prolayoutService.getLayoutState())
         this.isFixedSider = isFixed;
       });
     this.prolayoutService.fixedHeaderChange$
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((isFixed: boolean) => {
+        console.log(this.prolayoutService.getLayoutState())
         this.isFixedHeader = isFixed;
       });
 
@@ -184,16 +192,19 @@ export class VtsProLayoutContainerComponent implements OnInit, OnDestroy, OnChan
     this.prolayoutService.visibilityHeaderChange$
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((isShow: boolean) => {
+        console.log(this.prolayoutService.getLayoutState())
         this.onChangeVisiblityHeader(isShow);
       });
     this.prolayoutService.visibilitySiderChange$
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((isShow: boolean) => {
+        console.log(this.prolayoutService.getLayoutState())
         this.onChangeVisiblitySider(isShow);
       });
     this.prolayoutService.visibilityFooterChange$
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((isShow: boolean) => {
+        console.log(this.prolayoutService.getLayoutState())
         this.onChangeVisiblityFooter(isShow);
       });
 
@@ -201,6 +212,7 @@ export class VtsProLayoutContainerComponent implements OnInit, OnDestroy, OnChan
     this.lockUiService.lockUIStateChange$
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((isShow: boolean) => {
+        console.log(this.prolayoutService.getLayoutState())
         this.isScreenLocked = isShow;
       });
     this.lockUiService.getLockState();
