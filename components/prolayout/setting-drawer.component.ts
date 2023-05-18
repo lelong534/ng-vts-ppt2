@@ -35,7 +35,12 @@ export class VtsSettingDrawerComponent implements OnInit, OnDestroy {
     });
     this.themeService.theme$.subscribe((d: VtsTheme | null) => {
       this.currentTheme = d;
-      this.isDarkMode = d === 'dark';
+      if(d == "dark"){
+        this.isDarkMode = true;
+      }
+      else {
+        this.isDarkMode = false;
+      }
     });
   }
 
@@ -178,6 +183,6 @@ export class VtsSettingDrawerComponent implements OnInit, OnDestroy {
   }
 
   onThemeChange() {
-    this.themeService.setTheme(this.currentTheme === 'default' ? 'info' : 'default');
+    this.themeService.setTheme(this.currentTheme === 'default' ? 'dark' : 'default');
   }
 }
